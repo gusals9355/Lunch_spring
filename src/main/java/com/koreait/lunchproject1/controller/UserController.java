@@ -150,7 +150,7 @@ public class UserController {
         return MyUtils.REDIRECTPAGE("/user/login");
     }
 
-    @RequestMapping(value = "/edit")
+    @RequestMapping(value = "/editasd")
     public String asd(Model model, HttpSession session, MemberVO vo){
 
         MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","my/mypage",session);
