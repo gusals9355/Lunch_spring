@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
@@ -21,7 +20,7 @@ public class UserController {
     @Autowired
     MemberDAO memberDAO;
 
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String login(Model model, HttpSession session){
         if(MyUtils.getLoginUser(session) != null){
             return MyUtils.REDIRECTPAGE("/ojm");
@@ -30,8 +29,10 @@ public class UserController {
         return MyUtils.TEMPLATE;
     }
 
-    @RequestMapping(value="/login", method = RequestMethod.POST)
-    public String loginP(Model model, HttpSession session, MemberVO vo){
+
+
+    @PostMapping("/login")
+    public String loginP(Model model, MemberVO vo, HttpSession session){
 
         String msg = "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
         String hashedPw = memberDAO.getHashedPw(vo);
@@ -123,7 +124,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pw_check", method = RequestMethod.POST)
-    public String pw_checkP(Model model, HttpSession session, MemberVO vo){
+    public String pw_checkP(Model model, MemberVO vo){
         if(BCrypt.checkpw(vo.getPw(), memberDAO.getHashedPw(vo))) {
             return MyUtils.REDIRECTPAGE("edit");
         }
@@ -137,24 +138,31 @@ public class UserController {
         return MyUtils.TEMPLATE;
     }
 
-    @RequestMapping(value = "/edit/pw")
+    @GetMapping("/edit/pw")
     public String editPw(Model model, HttpSession session, MemberVO vo){
 
         MyUtils.setTemplate(model,"내정보 | 오늘 점심 뭐먹지?","my/editPw",session);
         return MyUtils.TEMPLATE;
     }
 
-    @RequestMapping(value = "/edit/pw", method = RequestMethod.POST)
+    @PostMapping("/edit/pw")
     public String editPwP(Model model, HttpSession session, MemberVO vo){
+        vo.setId(MyUtils.getLoginUserID(session));
+        vo.setPw(BCrypt.hashpw(vo.getPw(),BCrypt.gensalt()));
+        vo.setLog("로그아웃");
+        memberDAO.editPw(vo);
+        memberDAO.log(vo);
+        MyUtils.logOutSession(session);
 
         return MyUtils.REDIRECTPAGE("/user/login");
     }
 
-    @RequestMapping(value = "/editasd")
-    public String asd(Model model, HttpSession session, MemberVO vo){
-
-        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","my/mypage",session);
-        return MyUtils.TEMPLATE;
+    @GetMapping("/remove_user")
+    public String removeUser(Model model, HttpSession session, MemberVO vo){
+        vo.setId(MyUtils.getLoginUserID(session));
+        memberDAO.removeUser(vo);
+        MyUtils.logOutSession(session);
+        return MyUtils.REDIRECTPAGE("/ojm");
     }
 
 }

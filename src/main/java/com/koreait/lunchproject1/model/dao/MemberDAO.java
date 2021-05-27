@@ -40,7 +40,8 @@ public interface MemberDAO {
 
     void editPw(MemberVO vo);
 
-    void setPoint(MemberVO vo, String sign);
+    void upPoint(MemberVO vo);
+    void downPoint(MemberVO vo);
 
     void modManager(MemberVO vo);
 }

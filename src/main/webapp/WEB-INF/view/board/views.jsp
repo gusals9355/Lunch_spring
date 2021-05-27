@@ -8,7 +8,9 @@
 	<div class="row layout">
 		<div class="col left_layout"> <!-- 왼쪽 레이아웃 -->
 			<div class="imageBlock"> <!-- 사진블럭 -->
-				<img src="/upload/${boards.picture}" onerror="this.src='../../../upload/noImage.gif';" width="550" height="300">
+				<c:forEach var="item" items="#{picture}">
+					<img src="/upload/${item}" onerror="this.src='/img/noImage.gif';" width="550" height="300">
+				</c:forEach>
 				<c:if test="${boards.isFav eq 0 }">
 				<a href="/board/heart?no=${param.no }&fav=1"><i class="bi bi-heart" style="color: red"></i></a>
 				</c:if>

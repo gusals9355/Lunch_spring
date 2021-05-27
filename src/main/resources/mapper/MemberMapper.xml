@@ -69,12 +69,15 @@
     </update>
 
     <update id="editPw" parameterType="MemberVO">
-        update member set pw=#{hashpw} where id=#{id}
+        update member set pw=#{pw} where id=#{id}
     </update>
 
-<!--    <update id="setPoint" parameterType="MemberVO">-->
-<!--        update member set point=pointsign25 where id=#{id}-->
-<!--    </update>-->
+    <update id="downPoint" parameterType="MemberVO">
+        update member set point=point-#{writePoint} where id=#{id}
+    </update>
+    <update id="upPoint" parameterType="MemberVO">
+        update member set point=point+#{writePoint} where id=#{id}
+    </update>
 
 <!--    <update id="modManager" parameterType="MemberVO">-->
 

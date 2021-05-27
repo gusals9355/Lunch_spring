@@ -20,7 +20,8 @@
 			<div class="search_store"> <!-- 검색블럭 -->
 				<form onsubmit="searchPlaces(); return false;">
 					<label>매장찾기 : <input type="text" value="${board.store }" id="keyword" size="40"></label> 
-					<button type="submit" style="display: none;">검색하기</button> 
+					<button type="submit" style="display: none;">검색하기</button>
+					<p id="markerMsg"></p>
 				</form>
 			</div>
 			
@@ -74,8 +75,8 @@
 			<form action="/board/modBoard" method="post" enctype="multipart/form-data"> <!-- get방식 전송불가 -->
 				<input type="hidden" name="no" value="${param.no }">
 				<input type="hidden" name="store" id="placeName" value="${board.store}">
-				<input type="hidden" name="lat" id="lat" value="${board.mapX }">
-				<input type="hidden" name="lng" id="lng" value="${board.mapY }">
+				<input type="hidden" name="mapX" id="lat" value="${board.mapX }">
+				<input type="hidden" name="mapY" id="lng" value="${board.mapY }">
 				<input type="hidden" name="star" id="star" value="${board.star }">
 				<input type="hidden" name="category" id="foodType" value="${board.category }">
 				<!--<c:if test="${userInfo eq null }">
@@ -100,7 +101,7 @@
 				<div class="row"> <!-- 하단 블럭 -->
 					<div class="col select_file"> <!-- 파일업로드 -->
 						<label class="input-file-button" for="input-file">파일선택</label>
-						<input type="file" class="input" id="input-file" name="file" accept="image/*" style="display: none;">
+						<input type="file" class="input" id="input-file" name="file" multiple accept="image/*" style="display: none;">
 						<div class="preview"> <!-- 썸네일 -->
 							<p></p>
 						</div>

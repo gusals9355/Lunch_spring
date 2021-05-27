@@ -1,13 +1,16 @@
 package com.koreait.lunchproject1.controller;
 
 import com.koreait.lunchproject1.model.dao.BoardDAO;
+import com.koreait.lunchproject1.model.dao.MemberDAO;
+import com.koreait.lunchproject1.model.dao.RepleDAO;
 import com.koreait.lunchproject1.model.vo.BoardVO;
+import com.koreait.lunchproject1.model.vo.MemberVO;
+import com.koreait.lunchproject1.model.vo.RepleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value="/board/*")
@@ -23,8 +27,13 @@ public class BoardController {
 
     @Autowired
     BoardDAO boardDAO;
+    @Autowired
+    RepleDAO repleDAO;
+    @Autowired
+    MemberDAO memberDAO;
 
     @RequestMapping(value="/write", method= RequestMethod.GET)
+    @GetMapping("/write")
     public String boardWrite(Model model, HttpSession session){
 
 //        if(MyUtils.getLoginUser(session) == null){
@@ -39,14 +48,15 @@ public class BoardController {
         return MyUtils.TEMPLATE;
     }
 
-    @RequestMapping(value="/write", method= RequestMethod.POST)
-    public String boardWrite(MultipartFile[] file, BoardVO vo, HttpServletRequest request) throws IOException {
+    @PostMapping("/write")
+    public String boardWrite(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException {
 
-        String uploadPath = "D:\\JavaBackendClass\\LunchProject4\\spring\\src\\main\\webapp\\upload";
+        String uploadPath = "C:\\Users\\user\\Desktop\\LunchProject-main\\Lunch_spring\\src\\main\\resources\\static\\upload";
+        UUID uuid = UUID.randomUUID();
 
         List<String> list = new ArrayList<>();
         for (MultipartFile m:file) {
-            list.add(m.getOriginalFilename());
+            list.add(uuid+"_"+m.getOriginalFilename());
         }
 
         for(int i=0; i< file.length; i++){
@@ -58,17 +68,89 @@ public class BoardController {
                 e.printStackTrace();
             }
         }
-        vo.setId("123");
-        String fileName="";
-        for (String s:list) {
-            fileName += s+",";
-        }
-        fileName = fileName.substring(0, fileName.length()-1);
-
-        vo.setPicture(fileName);
+        vo.setId(MyUtils.getLoginUserID(session));
+        vo.setNickname(MyUtils.getLoginUser(session).getNickname());
         boardDAO.insertBoard(vo);
 
+        for (String s:list) {
+            vo.setPicture(s);
+            vo.setNo(boardDAO.selBoardNo(vo));
+            boardDAO.insertPicture(vo);
+        }
+        MemberVO memberVO = new MemberVO();
+        memberVO.setWritePoint(25);
+        memberVO.setId(MyUtils.getLoginUserID(session));
+        memberDAO.upPoint(memberVO);
+        MyUtils.reUserInfo(session,memberDAO);
+
         return "redirect:/ojm";
+    }
+
+    //TODO: 댓글작업
+    @GetMapping("/views")
+    public String views(Model model, BoardVO boardVO, RepleVO repleVO, HttpSession session, @RequestParam(value = "no") int no){
+        repleVO.setBoardNo(no);
+        boardVO.setId(MyUtils.getLoginUserID(session));
+        model.addAttribute("picture",boardDAO.getPicture(no));
+        model.addAttribute("boards",boardDAO.getBoard(boardVO));
+        model.addAttribute("reples", repleDAO.getReples(repleVO));
+        MyUtils.setTemplate(model,boardVO.getTitle(),"board/views",session);
+        return MyUtils.TEMPLATE;
+    }
+
+    @GetMapping("/delBoard")
+    public String delBoard(Model model, BoardVO boardVO, HttpSession session, @RequestParam(value = "no") int no){
+        boardVO.setNo(no);
+        boardVO.setId(MyUtils.getLoginUserID(session));
+        boardDAO.delBoard(boardVO);
+        MemberVO memberVO = new MemberVO();
+        memberVO.setId(MyUtils.getLoginUserID(session));
+        memberVO.setWritePoint(25);
+        memberDAO.downPoint(memberVO);
+        MyUtils.reUserInfo(session,memberDAO);
+
+        return MyUtils.REDIRECTPAGE("/ojm");
+    }
+
+    @GetMapping("/modBoard")
+    public String modBoard(Model model, BoardVO boardVO, HttpSession session){
+        final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
+        boardVO.setId(MyUtils.getLoginUserID(session));
+        model.addAttribute("typelist",typelist);
+        model.addAttribute("board",boardDAO.getBoard(boardVO));
+
+        MyUtils.setTemplate(model,boardVO.getTitle(),"board/modBoard",session);
+        return MyUtils.TEMPLATE;
+    }
+    @PostMapping("/modBoard")
+    public String modBoardP(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException{
+        String uploadPath = "C:\\Users\\user\\Desktop\\LunchProject-main\\Lunch_spring\\src\\main\\resources\\static\\upload";
+        UUID uuid = UUID.randomUUID();
+
+        List<String> list = new ArrayList<>();
+        for (MultipartFile m:file) {
+            list.add(uuid+"_"+m.getOriginalFilename());
+        }
+
+        for(int i=0; i< file.length; i++){
+            File target = new File(uploadPath, list.get(i));
+
+            try {
+                FileCopyUtils.copy(file[i].getBytes(), target);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        vo.setId(MyUtils.getLoginUserID(session));
+        vo.setNickname(MyUtils.getLoginUser(session).getNickname());
+        boardDAO.modBoard(vo);
+        boardDAO.delPicture(vo);
+        for (String s:list) {
+            vo.setPicture(s);
+            vo.setNo(boardDAO.selBoardNo(vo));
+            boardDAO.insertPicture(vo);
+        }
+        return MyUtils.REDIRECTPAGE("/ojm");
     }
 
 }

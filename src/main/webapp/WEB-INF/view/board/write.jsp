@@ -62,8 +62,8 @@
 		<div class="col right_layout"> <!-- 오른쪽 레이아웃 (주 폼태그) -->
 			<form action="/board/write" method="post" enctype="multipart/form-data"> <!-- get방식 전송불가 -->
 				<input type="hidden" name="store" id="placeName">
-				<input type="hidden" name="lat" id="lat">
-				<input type="hidden" name="lng" id="lng">
+				<input type="hidden" name="mapX" id="lat">
+				<input type="hidden" name="mapY" id="lng">
 				<input type="hidden" name="star" id="star">
 				<input type="hidden" name="category" id="foodType">
 				<!--<c:if test="${userInfo eq null }">
@@ -88,7 +88,7 @@
 				<div class="row"> <!-- 하단 블럭 -->
 					<div class="col select_file"> <!-- 파일업로드 -->
 						<label class="up input-file-button" for="input-file">파일선택</label>
-						<input type="file" class="input" id="input-file" name="file" accept="image/*" style="display: none;">
+						<input type="file" class="input" id="input-file" name="file" multiple accept="image/*" style="display: none;">
 						<div class="preview"> <!-- 썸네일 -->
 							<p></p>
 						</div>

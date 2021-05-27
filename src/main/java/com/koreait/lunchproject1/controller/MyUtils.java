@@ -1,5 +1,6 @@
 package com.koreait.lunchproject1.controller;
 
+import com.koreait.lunchproject1.model.dao.MemberDAO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
 import org.springframework.ui.Model;
 
@@ -34,11 +35,10 @@ public class MyUtils {
 		session.invalidate();
 	}
 	
-	public static void reUserInfo(HttpSession session) {
+	public static void reUserInfo(HttpSession session, MemberDAO memberDAO) {
 		MemberVO vo = new MemberVO();
 		vo.setId(MyUtils.getLoginUserID(session));
-//		MemberDAO memberDAO;
-		//session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
+		session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
 	}
 
 	public static void setTemplate(Model model, String title, String page, HttpSession session){

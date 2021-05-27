@@ -3,8 +3,12 @@
 
 <mapper namespace="com.koreait.lunchproject1.model.dao.BoardDAO">
     <insert id="insertBoard" parameterType="BoardVO">
-        insert into board(title, content, id, nickname, picture, star, category, mapX, mapY, store)
-        values(#{title},#{content},#{id},#{nickname},#{picture},#{star},#{category},#{mapX},#{mapY},#{store})
+        insert into board(title, content, id, nickname, star, category, mapX, mapY, store)
+        values(#{title},#{content},#{id},#{nickname},#{star},#{category},#{mapX},#{mapY},#{store})
+    </insert>
+
+    <insert id="insertPicture" parameterType="BoardVO">
+        insert into picture(boardno,picture) values(#{no},#{picture})
     </insert>
 
     <insert id="insertHeart" parameterType="BoardVO">
@@ -23,6 +27,14 @@
         where B.no= #{no}
     </select>
 
+    <select id="selBoardNo" resultType="int" parameterType="BoardVO">
+        select no from board where store = #{store}
+    </select>
+
+    <select id="getPicture" resultType="String" parameterType="int">
+        select picture from picture where boardno = #{no}
+    </select>
+
     <delete id="delBoard" parameterType="BoardVO">
         delete from board where no = #{no} and id = #{id}
     </delete>
@@ -31,10 +43,13 @@
         delete from board where no = #{no} and id = #{id}
     </delete>
 
+    <delete id="delPicture" parameterType="BoardVO">
+        delete from picture where boardno = #{no}
+    </delete>
+
     <update id="modBoard" parameterType="BoardVO">
-        update board set title = #{title}, content = #{content}, picture = #{picture}, star=#{star}, category = #{category}, reg_dt = now(),
+        update board set title = #{title}, content = #{content}, star=#{star}, category = #{category}, reg_dt = now(),
                          mapX=#{mapX},mapY=#{mapY}, store=#{store} where no = #{no} and id = #{id}
     </update>
-
 
 </mapper>
