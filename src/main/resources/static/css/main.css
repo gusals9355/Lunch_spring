@@ -1,0 +1,79 @@
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;height:500px;}
+#menu_wrap {twidth:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList .item span {display: block;margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .info{padding:10px 0 10px 55px;}
+#placesList .info .gray {color:#8a8a8a;}
+#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {color:#009900;}
+#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .marker_1 {background-position: 0 -10px;}
+#placesList .item .marker_2 {background-position: 0 -56px;}
+#placesList .item .marker_3 {background-position: 0 -102px}
+#placesList .item .marker_4 {background-position: 0 -148px;}
+#placesList .item .marker_5 {background-position: 0 -194px;}
+#placesList .item .marker_6 {background-position: 0 -240px;}
+#placesList .item .marker_7 {background-position: 0 -286px;}
+#placesList .item .marker_8 {background-position: 0 -332px;}
+#placesList .item .marker_9 {background-position: 0 -378px;}
+#placesList .item .marker_10 {background-position: 0 -423px;}
+#placesList .item .marker_11 {background-position: 0 -470px;}
+#placesList .item .marker_12 {background-position: 0 -516px;}
+#placesList .item .marker_13 {background-position: 0 -562px;}
+#placesList .item .marker_14 {background-position: 0 -608px;}
+#placesList .item .marker_15 {background-position: 0 -654px;}
+#pagination {margin:10px auto;text-align: center;}
+#pagination a {display:inline-block;margin-right:10px;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+* {box-sizing: border-box; margin: 0; padding: 0;}
+ol {padding:0 !important;}
+a {text-decoration: none !important; color: black !important;}
+li {list-style-type: none;}
+
+html, body {height: 100%;}
+body  { font-family: 'NanumBarunGothic', sans-serif; }
+/*login */
+#container{margin: 0 auto; width:768px; display: flex; justify-content: center; padding-top: 50px; padding-bottom: 50px; border: 1px solid #eaeaea;}
+.input_row {width: 400px; height: 50px;}
+.input_row > p {font-size: 13px; color: red;}
+.int{width: 100%; height: 30px;}
+.btn{width:100%; height: 50px;}
+.txt-bar{margin: 0 4px;}
+.join{font-weight: bold;}
+.info{margin-top: 30px; margin-left: 63px;}
+.content-title {border-bottom: 1px solid #eaeaea; margin-bottom: 20px;}
+.content-title > h1 {font-size: 19px;}
+.content-title > p {font-size: 13px;}
+.error > p {font-size: 13px; color: red;}
+.submits { display: flex; justify-content: space-around;}
+.sub{width: 114px; height: 36px;}
+/*join */
+.input_row2 {width: 400px; margin-bottom: 20px;}
+
+/*mypage*/
+.mybox{border: 1px solid #eaeaea; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 7px;}
+.up{display: flex !important; justify-content: flex-start !important; width: 114px;}
+.under {display: flex !important; justify-content: flex-end !important;}
+
+/*write */
+.input-file-button {padding: 6px 25px; background-color: #FF6600; border-radius: 4px; color: white; cursor: pointer;}
+.layout {text-align: center;}
+.left_layout {border: 1px solid #eaeaea; padding: 3rem;}
+.right_layout {border: 1px solid #eaeaea; padding: 3rem;}
+.search_store {margin-bottom: 8px;}
+.cancel {width: 114px; height: 36px;}
+.submit {width: 114px; height: 36px;}
+
+/*views*/
+.title {padding: 20px;}
+.title h1 {font-size: 22px; font-weight:bold; color: brown;}
+.content {font-size: 18px;}
+.userInfo {margin-bottom: 10px; }
+.date {margin-left: 5px; font-size: 12px;}

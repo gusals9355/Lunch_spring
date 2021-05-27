@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.lunchproject1.model.dao.BoardDAO">
+    <insert id="insertBoard" parameterType="BoardVO">
+        insert into board(title, content, id, nickname, picture, star, category, mapX, mapY, store)
+        values(#{title},#{content},#{id},#{nickname},#{picture},#{star},#{category},#{mapX},#{mapY},#{store})
+    </insert>
+
+    <insert id="insertHeart" parameterType="BoardVO">
+        insert into favorite(no,id) values(#{no},#{id})
+    </insert>
+
+    <select id="getAllBoard" resultType="BoardVO">
+        select * from board
+    </select>
+
+    <select id="getBoard" parameterType="BoardVO" resultType="BoardVO">
+        select B.*, if(F.no is null, 0,1) as isFav from board B
+        left join favorite F
+        on B.no = F.no
+        and F.id = #{id}
+        where B.no= #{no}
+    </select>
+
+    <delete id="delBoard" parameterType="BoardVO">
+        delete from board where no = #{no} and id = #{id}
+    </delete>
+
+    <delete id="removeHeart" parameterType="BoardVO">
+        delete from board where no = #{no} and id = #{id}
+    </delete>
+
+    <update id="modBoard" parameterType="BoardVO">
+        update board set title = #{title}, content = #{content}, picture = #{picture}, star=#{star}, category = #{category}, reg_dt = now(),
+                         mapX=#{mapX},mapY=#{mapY}, store=#{store} where no = #{no} and id = #{id}
+    </update>
+
+
+</mapper>
