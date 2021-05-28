@@ -127,7 +127,23 @@ function displayPlaces(places) {
 				inputLat.value = latlng.getLat();
 				var placeName = document.getElementById('placeName');
 				placeName.value = title;
+
+                ajax(title); // 상호명
+
 			});
+
+            function ajax(store){
+
+                const init = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(param)
+                }
+
+                fetch('')
+            }
 			
         })(marker, places[i].place_name);
 

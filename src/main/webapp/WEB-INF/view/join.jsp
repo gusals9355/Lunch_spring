@@ -6,7 +6,7 @@
 			<h1>회원가입</h1>
 			<p>	&nbsp; 환영합니다!</p>
 		</header>
-		<form action="join" method="post" onsubmit="return verify('회원가입');">
+		<form action="join.go" method="post" onsubmit="return verify('회원가입');">
 		<div class="input_row">
 			<input class="int" type="text" name="name" placeholder="이름" maxlength="10" required="required" value="${param.name }">
 		</div>

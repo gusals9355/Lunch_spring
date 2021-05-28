@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<div class="col right_layout"> <!-- 오른쪽 레이아웃 (주 폼태그) -->
-			<form action="/board/write" method="post" enctype="multipart/form-data"> <!-- get방식 전송불가 -->
+			<form action="/board/write.do" method="post" enctype="multipart/form-data"> <!-- get방식 전송불가 -->
 				<input type="hidden" name="store" id="placeName">
 				<input type="hidden" name="mapX" id="lat">
 				<input type="hidden" name="mapY" id="lng">

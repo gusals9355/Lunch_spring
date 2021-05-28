@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     MemberDAO memberDAO;
 
-    @GetMapping("/login")
+    @GetMapping("/login.go")
     public String login(Model model, HttpSession session){
         if(MyUtils.getLoginUser(session) != null){
             return MyUtils.REDIRECTPAGE("/ojm");
@@ -31,14 +31,14 @@ public class UserController {
 
 
 
-    @PostMapping("/login")
+    @PostMapping("/login.go")
     public String loginP(Model model, MemberVO vo, HttpSession session){
 
         String msg = "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
         String hashedPw = memberDAO.getHashedPw(vo);
         if(hashedPw.equals("") || !BCrypt.checkpw(vo.getPw(), hashedPw)) { //비번 틀릴경우
             model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-            return MyUtils.REDIRECTPAGE("login");
+            return MyUtils.REDIRECTPAGE("login.go");
         }
         if(BCrypt.checkpw(vo.getPw(), hashedPw)) { // 로그인 성공
             //로그인 성공 시 포인트를 획득함
@@ -59,7 +59,7 @@ public class UserController {
         return "";
     }
 
-    @RequestMapping(value="/logout")
+    @GetMapping("/logout.do")
     public String logout(Model model, HttpSession session){
         MemberVO vo = MyUtils.getLoginUser(session);
         vo.setLog("로그아웃");
@@ -69,13 +69,12 @@ public class UserController {
         return MyUtils.REDIRECTPAGE("/ojm");
     }
 
-    @RequestMapping(value="/join" )
+    @GetMapping("/join.go")
     public String join(Model model, HttpSession session){
         MyUtils.setTemplate(model,"회원가입 | 오늘 점심 뭐먹지?","join",session);
         return MyUtils.TEMPLATE;
     }
-
-    @RequestMapping(value="/join", method = RequestMethod.POST)
+    @PostMapping("/join.go")
     public String joinP(Model model, MemberVO vo){
 
         vo.setNickname(vo.getName());
@@ -85,13 +84,13 @@ public class UserController {
         return MyUtils.REDIRECTPAGE("/ojm");
     }
 
-    @RequestMapping(value="/edit/nickname")
+    @GetMapping("/edit/nickname.do")
     public String editNickName(Model model, HttpSession session){
 
         MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","my/editNickName",session);
         return MyUtils.TEMPLATE;
     }
-    @RequestMapping(value="/edit/nickname", method = RequestMethod.POST)
+    @PostMapping("/edit/nickname.do")
     public String editNickNameP(Model model, HttpSession session, MemberVO vo){
         vo.setId(MyUtils.getLoginUserID(session));
         memberDAO.editNick(vo);
@@ -99,7 +98,7 @@ public class UserController {
         return MyUtils.REDIRECTPAGE("/ojm");
     }
 
-    @RequestMapping(value="/ranking")
+    @GetMapping("/ranking.do")
     public String ranking(Model model, HttpSession session, MemberVO vo){
         if(vo.getPage() == 0) vo.setPage(1);
         int pageCount = 10;
@@ -116,36 +115,36 @@ public class UserController {
         return MyUtils.TEMPLATE;
     }
 
-    @RequestMapping(value = "/pw_check")
+    @GetMapping("/pw_check.do")
     public String pw_check(Model model, HttpSession session, MemberVO vo){
 
         MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","my/pwCheck",session);
         return MyUtils.TEMPLATE;
     }
 
-    @RequestMapping(value = "/pw_check", method = RequestMethod.POST)
+    @PostMapping("/pw_check.do")
     public String pw_checkP(Model model, MemberVO vo){
         if(BCrypt.checkpw(vo.getPw(), memberDAO.getHashedPw(vo))) {
-            return MyUtils.REDIRECTPAGE("edit");
+            return MyUtils.REDIRECTPAGE("edit.do");
         }
-        return MyUtils.REDIRECTPAGE("pw_check");
+        return MyUtils.REDIRECTPAGE("pw_check.do");
     }
 
-    @RequestMapping(value = "/edit")
+    @RequestMapping(value = "/edit.do")
     public String myPage(Model model, HttpSession session, MemberVO vo){
 
         MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","my/mypage",session);
         return MyUtils.TEMPLATE;
     }
 
-    @GetMapping("/edit/pw")
+    @GetMapping("/edit/pw.do")
     public String editPw(Model model, HttpSession session, MemberVO vo){
 
         MyUtils.setTemplate(model,"내정보 | 오늘 점심 뭐먹지?","my/editPw",session);
         return MyUtils.TEMPLATE;
     }
 
-    @PostMapping("/edit/pw")
+    @PostMapping("/edit/pw.do")
     public String editPwP(Model model, HttpSession session, MemberVO vo){
         vo.setId(MyUtils.getLoginUserID(session));
         vo.setPw(BCrypt.hashpw(vo.getPw(),BCrypt.gensalt()));
@@ -154,10 +153,10 @@ public class UserController {
         memberDAO.log(vo);
         MyUtils.logOutSession(session);
 
-        return MyUtils.REDIRECTPAGE("/user/login");
+        return MyUtils.REDIRECTPAGE("/user/login.go");
     }
 
-    @GetMapping("/remove_user")
+    @GetMapping("/remove_user.do")
     public String removeUser(Model model, HttpSession session, MemberVO vo){
         vo.setId(MyUtils.getLoginUserID(session));
         memberDAO.removeUser(vo);

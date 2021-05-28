@@ -31,7 +31,7 @@ for (let i = 0; i < store.length; i ++) {
     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	kakao.maps.event.addListener(marker, 'click', function(){
-		location.href=`/board/views?no=${no[i].value}`
+		location.href=`/board/views.do?no=${no[i].value}`
 	});
 }
 function makeOverListener(map, marker, infowindow) {
@@ -145,7 +145,7 @@ function displayPlaces(places) {
 				 kakao.maps.event.addListener(marker,'click',function(){
 					cnt++;
 					if(cnt == 5){
-						location.href='/regi_manager';
+						location.href='/regi_manager.do';
 					}
 				});
 			}

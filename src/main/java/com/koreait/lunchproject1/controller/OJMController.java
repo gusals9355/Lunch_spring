@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 
 @Controller
 public class OJMController {
@@ -17,6 +18,8 @@ public class OJMController {
     @GetMapping("/ojm")
     public String ojm(Model model, HttpSession session) {
         final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
+        String path = new File("").getAbsolutePath();
+        System.out.println(path);
         model.addAttribute("typelist",typelist);
         model.addAttribute("list", boardDAO.getAllBoard());
         MyUtils.setTemplate(model, "오늘 점심은 뭐먹지?", "/ojm", session);

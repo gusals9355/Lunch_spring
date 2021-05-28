@@ -8,6 +8,8 @@ import java.util.List;
 @Repository("repleDAO")
 public interface RepleDAO {
 
+    void insertReple(RepleVO vo);
     List<RepleVO> getReples(RepleVO vo);
-
+    void delReple(RepleVO vo);
+    void modReple(RepleVO vo);
 }

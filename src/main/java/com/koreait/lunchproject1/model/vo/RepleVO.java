@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RepleVO {
+    private int repleno;
     private int no;
-    private int boardNo;
     private String id;
     private String nickname;
     private String reple;

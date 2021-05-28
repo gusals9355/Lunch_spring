@@ -32,15 +32,8 @@ public class BoardController {
     @Autowired
     MemberDAO memberDAO;
 
-    @RequestMapping(value="/write", method= RequestMethod.GET)
-    @GetMapping("/write")
+    @GetMapping("/write.do")
     public String boardWrite(Model model, HttpSession session){
-
-//        if(MyUtils.getLoginUser(session) == null){
-//            return "redirect:/user/login";
-//            //redirect : GET
-//            //forward : POST
-//        }
 
         final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
         model.addAttribute("typelist",typelist);
@@ -48,10 +41,10 @@ public class BoardController {
         return MyUtils.TEMPLATE;
     }
 
-    @PostMapping("/write")
+    @PostMapping("/write.do")
     public String boardWrite(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException {
 
-        String uploadPath = "C:\\Users\\user\\Desktop\\LunchProject-main\\Lunch_spring\\src\\main\\resources\\static\\upload";
+        final String uploadPath = "D:/JavaBackendClass/lunchproject1/src/main/resources/static/upload";
         UUID uuid = UUID.randomUUID();
 
         List<String> list = new ArrayList<>();
@@ -83,13 +76,13 @@ public class BoardController {
         memberDAO.upPoint(memberVO);
         MyUtils.reUserInfo(session,memberDAO);
 
-        return "redirect:/ojm";
+        return MyUtils.REDIRECTPAGE("/ojm");
     }
 
     //TODO: 댓글작업
-    @GetMapping("/views")
+    @GetMapping("/views.do")
     public String views(Model model, BoardVO boardVO, RepleVO repleVO, HttpSession session, @RequestParam(value = "no") int no){
-        repleVO.setBoardNo(no);
+        repleVO.setNo(no);
         boardVO.setId(MyUtils.getLoginUserID(session));
         model.addAttribute("picture",boardDAO.getPicture(no));
         model.addAttribute("boards",boardDAO.getBoard(boardVO));
@@ -97,8 +90,16 @@ public class BoardController {
         MyUtils.setTemplate(model,boardVO.getTitle(),"board/views",session);
         return MyUtils.TEMPLATE;
     }
+    @PostMapping("/views.do")
+    public String viewsP(Model model, RepleVO repleVO, HttpSession session){
+        MemberVO memberVO = MyUtils.getLoginUser(session);
+        repleVO.setId(memberVO.getId());
+        repleVO.setNickname(memberVO.getNickname());
+        repleDAO.insertReple(repleVO);
+        return MyUtils.REDIRECTPAGE("/views.do");
+    }
 
-    @GetMapping("/delBoard")
+    @GetMapping("/delBoard.do")
     public String delBoard(Model model, BoardVO boardVO, HttpSession session, @RequestParam(value = "no") int no){
         boardVO.setNo(no);
         boardVO.setId(MyUtils.getLoginUserID(session));
@@ -112,7 +113,7 @@ public class BoardController {
         return MyUtils.REDIRECTPAGE("/ojm");
     }
 
-    @GetMapping("/modBoard")
+    @GetMapping("/modBoard.do")
     public String modBoard(Model model, BoardVO boardVO, HttpSession session){
         final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
         boardVO.setId(MyUtils.getLoginUserID(session));
@@ -122,9 +123,9 @@ public class BoardController {
         MyUtils.setTemplate(model,boardVO.getTitle(),"board/modBoard",session);
         return MyUtils.TEMPLATE;
     }
-    @PostMapping("/modBoard")
+    @PostMapping("/modBoard.do")
     public String modBoardP(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException{
-        String uploadPath = "C:\\Users\\user\\Desktop\\LunchProject-main\\Lunch_spring\\src\\main\\resources\\static\\upload";
+        final String uploadPath = "D:/JavaBackendClass/lunchproject1/src/main/resources/static/upload";
         UUID uuid = UUID.randomUUID();
 
         List<String> list = new ArrayList<>();

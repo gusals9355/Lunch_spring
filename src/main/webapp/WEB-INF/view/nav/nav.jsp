@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
-      <form class="d-flex" action="/user/login">
+      <form class="d-flex" action="/user/login.go">
         <button class="btn btn-outline-success" type="submit">로그인</button>
       </form>
     </div>

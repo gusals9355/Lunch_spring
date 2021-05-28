@@ -4,7 +4,7 @@
 	<header class="content-title">
 		<h1>비밀번호 찾기</h1>
 	</header>
-	<form action="findPw" method="post" onsubmit="return verify('비밀번호 변경');">
+	<form action="findPw.go" method="post" onsubmit="return verify('비밀번호 변경');">
 		<div class="input_row">
 			<input class="int" type="text" name="id" id="id" value="${param.id }" placeholder="아이디" required><br>
 		</div>

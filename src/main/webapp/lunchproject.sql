@@ -52,14 +52,13 @@ create table log(
 );
 
 create table reple(
-    no int unsigned auto_increment primary key,
-    boardno int unsigned,
+    repleno int unsigned auto_increment primary key,
+    no int unsigned,
     id varchar(20),
     nickname varchar(10) not null,
     reple varchar(500) not null,
     reg_dt datetime default now(),
-    star int(1),
-    foreign key(boardno) references board(no) on delete cascade,
+    foreign key(no) references board(no) on delete cascade,
     foreign key(id) references member(id)
 );
 

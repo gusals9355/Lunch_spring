@@ -11,13 +11,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
   		<div style="width: 535px;" class="btn-group" role="group" aria-label="First group">
-		    <button style="width: 250%;" type="button" class="btn btn-outline-secondary" onclick="goPage('user/edit/nickname')"><span>${userInfo.nickname}님</span></button>
+		    <button style="width: 250%;" type="button" class="btn btn-outline-secondary" onclick="goPage('user/edit/nickname.do')"><span>${userInfo.nickname}님</span></button>
 		    <button type="button" class="btn btn-outline-secondary">${userInfo.ranked }</button>
-		    <button type="button" class="btn btn-outline-secondary" onclick="goPage('user/ranking')">랭킹</button>
-		    <button type="button" class="btn btn-outline-secondary" onclick="goPage('user/pw_check')">내정보</button>
+		    <button type="button" class="btn btn-outline-secondary" onclick="goPage('user/ranking.do')">랭킹</button>
+		    <button type="button" class="btn btn-outline-secondary" onclick="goPage('user/pw_check.do')">내정보</button>
 		    <button type="button" class="btn btn-outline-secondary"><fmt:formatNumber groupingUsed="true" value="${userInfo.point}"/>xp </button>
   		</div>
-      <form class="d-flex" action="/user/logout">
+      <form class="d-flex" action="/user/logout.do">
         <button class="btn btn-outline-success" type="submit">로그아웃</button>
       </form>
     </div>

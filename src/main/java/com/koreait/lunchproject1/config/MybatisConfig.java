@@ -1,12 +1,16 @@
 package com.koreait.lunchproject1.config;
 
+import com.koreait.lunchproject1.interceptor.LoginInterceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
 
@@ -29,4 +33,7 @@ public class MybatisConfig {
         public SqlSessionTemplate sqlSession(SqlSessionFactory sqlSessionFactory) throws Exception{
             return new SqlSessionTemplate(sqlSessionFactory);
         }
+
+        @Autowired
+        LoginInterceptor loginInterceptor;
 }

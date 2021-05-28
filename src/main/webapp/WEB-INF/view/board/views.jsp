@@ -9,7 +9,7 @@
 		<div class="col left_layout"> <!-- 왼쪽 레이아웃 -->
 			<div class="imageBlock"> <!-- 사진블럭 -->
 				<c:forEach var="item" items="#{picture}">
-					<img src="/upload/${item}" onerror="this.src='/img/noImage.gif';" width="550" height="300">
+					<img src="C:\Users\Administrator\Desktop\asd/${item}" onerror="this.src='/img/noImage.gif';" width="550" height="300">
 				</c:forEach>
 				<c:if test="${boards.isFav eq 0 }">
 				<a href="/board/heart?no=${param.no }&fav=1"><i class="bi bi-heart" style="color: red"></i></a>
@@ -46,8 +46,8 @@
 							<span class="nickname">${item.nickname}</span>
 							<span class="date">(${item.reg_dt})</span>
 						<c:if test="${userInfo.id == item.id }">
-							<button style="width: 55px; height: 30px;" type="button" class="cancel btn btn-outline-secondary" onclick="againCheck('board/delReple?no=${param.no}&repleNo=${item.no}','삭제')">삭제</button>
-							<button style="width: 55px; height: 30px;" type="button" class="modify btn btn-outline-info" onclick="goPage('board/modReple?no=${param.no}&repleNo=${item.no}')">수정</button>
+							<button style="width: 55px; height: 30px;" type="button" class="cancel btn btn-outline-secondary" onclick="againCheck('board/delReple.do?no=${param.no}&repleNo=${item.no}','삭제')">삭제</button>
+							<button style="width: 55px; height: 30px;" type="button" class="modify btn btn-outline-info" onclick="goPage('board/modReple.do?no=${param.no}&repleNo=${item.no}')">수정</button>
 						</c:if>
 						</div>
 						<div class="comment">
@@ -57,7 +57,7 @@
 					</div>
 				</c:forEach>
 				
-				<form action="/board/views?no=${param.no }" method="post">
+				<form action="/board/views.do?no=${param.no }" method="post">
 					<div class="col">
 						<input type="text" name="reple" maxlength="500" placeholder="댓글입력" size="50">
 						<input type="submit" class="btn btn-success" value="등록" style="width: 50px; height: 30px;"></input>
@@ -70,10 +70,10 @@
 			<c:if test="${userInfo.id == boards.id }">
 				<div class="row" style="position: absolute; bottom: 20px; right: 80px; margin-top: 50px"> <!-- 하단 블럭 -->
 					<div class="col"> <!-- 등록 -->
-						<button type="button" class="cancel btn btn-secondary" onclick="againCheck('board/delBoard?no=${param.no}','삭제')">삭제</button>
+						<button type="button" class="cancel btn btn-secondary" onclick="againCheck('board/delBoard.do?no=${param.no}','삭제')">삭제</button>
 					</div>
 					<div class="col">
-						<button type="button" class="submit btn btn-info" onclick="goPage('board/modBoard?no=${param.no}')">수정</button>
+						<button type="button" class="submit btn btn-info" onclick="goPage('board/modBoard.do?no=${param.no}')">수정</button>
 					</div>
 				</div>
 			</c:if>

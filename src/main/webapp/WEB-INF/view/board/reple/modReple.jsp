@@ -32,9 +32,9 @@
 					<div style="margin-bottom: 30px;">
 						<c:choose>
 							<c:when test="${item.no == repleNo}">
-								<form action="/board/modReple?no=${param.no }&repleNo=${item.no}" method="post">
+								<form action="/board/modReple.do?no=${param.no }&repleNo=${item.no}" method="post">
 									<input type="text" name="reple" value="${item.reple }">
-									<button type="button" class="cancel btn btn-secondary" onclick="goPage('board/views?no=${param.no}')">취소</button>
+									<button type="button" class="cancel btn btn-secondary" onclick="goPage('board/views.do?no=${param.no}')">취소</button>
 									<input type="submit" class="modify btn btn-info" value="수정">
 								</form>
 							</c:when>

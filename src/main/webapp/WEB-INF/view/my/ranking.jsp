@@ -52,7 +52,7 @@
 			</c:forEach>
 		</div>
 		<div class="under col">
-			<form action="/ranking" method="get">
+			<form action="/ranking.go" method="get">
 				<select name="select">
 					<option value="nickname">닉네임
 					<option value="id">아이디

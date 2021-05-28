@@ -5,7 +5,7 @@
 		<header class="content-title">
 			<h2>닉네임 변경</h2>
 		</header>
-		<form action="/user/edit/nickname" method="post" onsubmit="alert('변경되었습니다.')">
+		<form action="/user/edit/nickname.do" method="post" onsubmit="alert('변경되었습니다.')">
 			<div class="input_row">
 				<label for="nickname">닉네임<input class="int" id="nickname" type="text" name="nickname" value="${userInfo.nickname }" required autofocus maxlength="10"></label>
 			</div>

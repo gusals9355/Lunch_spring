@@ -4,7 +4,18 @@
 
 <mapper namespace="com.koreait.lunchproject1.model.dao.RepleDAO">
     <select id="getReples" resultType="RepleVO" parameterType="RepleVO">
-        select * from reple where boardno = #{boardNo} order by no desc
+        select * from reple where no = #{no} order by no desc
     </select>
 
+    <insert id="insertReple" parameterType="RepleVO">
+        insert into reple(no, id, nickname, reple) values(#{no},#{id},#{nickname},#{reple})
+    </insert>
+
+    <delete id="delReple" parameterType="RepleVO">
+        delete from reple where boardno = #{no} and id = #{id} and no = #{no}
+    </delete>
+
+    <update id="modReple" parameterType="RepleVO">
+        update reple set reple = #{reple}, reg_dt = now() where boardno = #{boardno} and id = #{id} and no = #{no}
+    </update>
 </mapper>

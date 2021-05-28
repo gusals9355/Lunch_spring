@@ -11,7 +11,7 @@
 			${userInfo.nickname}님
 			회원 | ${userInfo.ranked} (${userInfo.point }xp)
 		</div>
-		<form action="/user/pw_check" method="post">
+		<form action="/user/pw_check.do" method="post">
 			<div class="input_row">
 				<input class="int" type="text" name="id" value="${userInfo.id }" readonly>
 			</div>
