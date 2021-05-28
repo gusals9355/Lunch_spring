@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -103,13 +104,11 @@ public class UserController {
         if(vo.getPage() == 0) vo.setPage(1);
         int pageCount = 10;
         int sIdx = (vo.getPage() -1) * pageCount;
-        if(vo.getId() ==null) vo.setId("");
-        if(vo.getSelect() ==null) vo.setSelect("nickname");
         vo.setSIdx(sIdx);
         vo.setPageCount(pageCount);
         model.addAttribute("pageNum",sIdx);
-//        model.addAttribute("maxPage",memberDAO.getAllPage(vo));
-//        model.addAttribute("rankingList",memberDAO.getRanking(vo));
+        model.addAttribute("maxPage",memberDAO.getAllPage(vo));
+        model.addAttribute("rankingList",memberDAO.getRanking(vo));
 
         MyUtils.setTemplate(model,"랭킹 | 오늘 점심 뭐먹지?","my/ranking",session);
         return MyUtils.TEMPLATE;

@@ -25,7 +25,7 @@ public interface MemberDAO {
 
     boolean findPw(MemberVO vo);
 
-    boolean regiManager(String code);
+    String regiManager(String code);
 
     //로그인 정보 (로그)를 저장하는 메소드
     void log(MemberVO vo);
@@ -43,5 +43,5 @@ public interface MemberDAO {
     void upPoint(MemberVO vo);
     void downPoint(MemberVO vo);
 
-    void modManager(MemberVO vo);
+    void modManager(String id);
 }

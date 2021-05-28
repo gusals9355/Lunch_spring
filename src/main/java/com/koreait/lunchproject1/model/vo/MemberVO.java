@@ -26,5 +26,6 @@ public class MemberVO {
     private int sIdx;
     private int pageCount;
     private int writePoint;
+    private String search;
 
 }

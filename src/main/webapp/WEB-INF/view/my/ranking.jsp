@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="/css/ranking.css">
 <div class="container">
 	<div class="row">
 		<div class="mybox col-1">
@@ -32,10 +33,10 @@
 				${pageNum + status.count}
 			</div>
 			<div class="mybox col-3">
-				${i.nickName }(${i.id })
+				${i.nickname }(${i.id })
 			</div>
 			<div class="mybox col-2">
-				${i.rank }
+				${i.ranked }
 			</div>
 			<div class="mybox col-2">
 				${i.point }
@@ -48,16 +49,23 @@
 	<div class="row">
 		<div class="under col">
 			<c:forEach var="i" begin="1" end="${maxPage}">
-				&nbsp;<a href="?page=${i}&id=${id}">${i}</a>&nbsp;
+				<c:choose>
+					<c:when test="${i eq 1 && (empty param.page) || i eq param.page}">
+						<span class="page">${i}</span>
+					</c:when>
+					<c:otherwise>
+						&nbsp;<a href="?page=${i}&select=${param.select}&search=${param.search}"><span>${i}</span></a>&nbsp;
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 		</div>
-		<div class="under col">
-			<form action="/ranking.go" method="get">
+		<div class="under col"> <!--검색창!-->
+			<form action="ranking.do" method="get">
 				<select name="select">
 					<option value="nickname">닉네임
 					<option value="id">아이디
 				</select>
-				<input type="text" name="id" maxlength="10" value="${id }">
+				<input type="text" name="search" maxlength="10" value="${param.search }">
 				<input type="submit" value="검색">
 			</form>
 		</div>
