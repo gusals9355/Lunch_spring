@@ -28,5 +28,6 @@ public interface BoardDAO {
 
     int selBoardNo(BoardVO vo);
 
+    void upReadCount(BoardVO vo);
 
 }

@@ -6,7 +6,7 @@
 			<h1>회원가입</h1>
 			<p>	&nbsp; 환영합니다!</p>
 		</header>
-		<form action="join.go" method="post" onsubmit="return verify('회원가입');">
+		<form action="join.go" method="post" id="form" onsubmit="return asdasd();">
 		<div class="input_row">
 			<input class="int" type="text" name="name" placeholder="이름" maxlength="10" required="required" value="${param.name }">
 		</div>
@@ -23,9 +23,9 @@
 			</label>
 		</div>
 		<div class="input_row">
-			<input class="int" type="text" name="id" placeholder="아이디" maxlength="20" required="required" value="${param.id }">
-			<p>${msg }</p>
+			<input class="int" type="text" name="id" id="id" placeholder="아이디" maxlength="20" required="required" value="${param.id }">
 		</div>
+		<p class="error" name="error"></p>
 		<div class="input_row">
 			<input class="int" type="password" name="pw" id="pw" placeholder="비밀번호" maxlength="20" required="required">
 		</div>

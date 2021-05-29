@@ -60,7 +60,7 @@
     </select>
 
     <select id="findPw" resultType="boolean" parameterType="MemberVO">
-        select * from member where id=#{id} and name=#{name} and email=#{email}
+        select if(count(*)=1,1,0) from member where id=#{id} and name=#{name} and email=#{email}
     </select>
 
     <select id="regiManager" resultType="String" parameterType="String">

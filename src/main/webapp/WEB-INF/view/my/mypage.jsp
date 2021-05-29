@@ -4,7 +4,7 @@
 	<div class="mybox">
 		<h3>비밀번호 변경</h3>
 		<p>주기적으로 비밀번호를 변경하여 계정을 보호하세요.</p>
-		<button type="button" class="btn btn-danger" onclick="goPage('user/edit/pw.do')">비밀번호 변경</button>
+		<button type="button" class="btn btn-danger" onclick="goPage('user/edit/pw.go')">비밀번호 변경</button>
 	</div>
 	<div class="mybox">
 		<h3>정말 탈퇴하시겠습니까?</h3>

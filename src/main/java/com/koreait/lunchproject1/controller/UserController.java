@@ -4,12 +4,16 @@ import com.koreait.lunchproject1.model.dao.MemberDAO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.lang.reflect.Member;
 import java.util.List;
 import java.util.UUID;
@@ -30,32 +34,36 @@ public class UserController {
         return MyUtils.TEMPLATE;
     }
 
-
-
     @PostMapping("/login.go")
     public String loginP(Model model, MemberVO vo, HttpSession session){
+        String hashedPw = "";
+        try{
+            hashedPw = memberDAO.getHashedPw(vo);
+            if(BCrypt.checkpw(vo.getPw(), hashedPw)) { // 로그인 성공
+                //로그인 성공 시 포인트를 획득함
+                //로그인 포인트는 하루에 한번만 받을 수 있음
+                vo.setLog("로그인");
+                vo.setLoginPoint(100);
 
-        String msg = "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
-        String hashedPw = memberDAO.getHashedPw(vo);
-        if(hashedPw.equals("") || !BCrypt.checkpw(vo.getPw(), hashedPw)) { //비번 틀릴경우
-            model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-            return MyUtils.REDIRECTPAGE("login.go");
-        }
-        if(BCrypt.checkpw(vo.getPw(), hashedPw)) { // 로그인 성공
-            //로그인 성공 시 포인트를 획득함
-            //로그인 포인트는 하루에 한번만 받을 수 있음
-            vo.setLog("로그인");
-            vo.setLoginPoint(100);
-
-            memberDAO.log(vo); //로그인시 로그들을 db에 저장
-            try {
-                memberDAO.logCheck(vo); //하루 최초 로그인 시 출석체크가 되는 메소드
-                memberDAO.pointUp(vo);
-            }catch (Exception e){
-            }finally {
-                session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
-                return MyUtils.REDIRECTPAGE("/ojm");
+                memberDAO.log(vo); //로그인시 로그들을 db에 저장
+                try {
+                    memberDAO.logCheck(vo); //하루 최초 로그인 시 출석체크가 되는 메소드
+                    memberDAO.pointUp(vo);
+                }catch (Exception e){
+                }finally {
+                    session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
+                    return MyUtils.REDIRECTPAGE("/ojm");
+                }
             }
+            if(hashedPw.equals("") || !BCrypt.checkpw(vo.getPw(), hashedPw)) { //비번 틀릴경우
+                model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+                MyUtils.setTemplate(model,"로그인 | 오점뭐?","login",session);
+                return MyUtils.TEMPLATE;
+            }
+        }catch (Exception e){
+            model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+            MyUtils.setTemplate(model,"로그인 | 오점뭐?","login",session);
+            return MyUtils.TEMPLATE;
         }
         return "";
     }
@@ -75,14 +83,17 @@ public class UserController {
         MyUtils.setTemplate(model,"회원가입 | 오늘 점심 뭐먹지?","join",session);
         return MyUtils.TEMPLATE;
     }
-    @PostMapping("/join.go")
-    public String joinP(Model model, MemberVO vo){
 
+    @ResponseBody
+    @PostMapping("/join.go")
+    public int joinP(MemberVO vo){
         vo.setNickname(vo.getName());
         vo.setPw(BCrypt.hashpw(vo.getPw(),BCrypt.gensalt()));
-        memberDAO.insertMember(vo);
-
-        return MyUtils.REDIRECTPAGE("/ojm");
+        try {
+            memberDAO.insertMember(vo);
+        }catch (Exception e){ //TODO: 바로해야함
+            
+        }
     }
 
     @GetMapping("/edit/nickname.do")
@@ -122,11 +133,13 @@ public class UserController {
     }
 
     @PostMapping("/pw_check.do")
-    public String pw_checkP(Model model, MemberVO vo){
+    public String pw_checkP(Model model, MemberVO vo, HttpSession session){
         if(BCrypt.checkpw(vo.getPw(), memberDAO.getHashedPw(vo))) {
             return MyUtils.REDIRECTPAGE("edit.do");
         }
-        return MyUtils.REDIRECTPAGE("pw_check.do");
+        model.addAttribute("msg","비밀번호를 다시 확인해주세요.");
+        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","my/pwCheck",session);
+        return MyUtils.TEMPLATE;
     }
 
     @RequestMapping(value = "/edit.do")
@@ -136,21 +149,22 @@ public class UserController {
         return MyUtils.TEMPLATE;
     }
 
-    @GetMapping("/edit/pw.do")
+    @GetMapping("/edit/pw.go")
     public String editPw(Model model, HttpSession session, MemberVO vo){
-
         MyUtils.setTemplate(model,"내정보 | 오늘 점심 뭐먹지?","my/editPw",session);
         return MyUtils.TEMPLATE;
     }
 
-    @PostMapping("/edit/pw.do")
+    @PostMapping("/edit/pw.go")
     public String editPwP(Model model, HttpSession session, MemberVO vo){
-        vo.setId(MyUtils.getLoginUserID(session));
+        if(MyUtils.getLoginUser(session) != null){
+            vo.setId(MyUtils.getLoginUserID(session));
+            vo.setLog("로그아웃");
+            memberDAO.log(vo);
+            MyUtils.logOutSession(session);
+        }
         vo.setPw(BCrypt.hashpw(vo.getPw(),BCrypt.gensalt()));
-        vo.setLog("로그아웃");
         memberDAO.editPw(vo);
-        memberDAO.log(vo);
-        MyUtils.logOutSession(session);
 
         return MyUtils.REDIRECTPAGE("/user/login.go");
     }
@@ -161,6 +175,38 @@ public class UserController {
         memberDAO.removeUser(vo);
         MyUtils.logOutSession(session);
         return MyUtils.REDIRECTPAGE("/ojm");
+    }
+
+    @GetMapping("findId.go")
+    public String findId(Model model, HttpSession session, MemberVO vo){
+        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?" ,"findId",session);
+        return MyUtils.TEMPLATE;
+    }
+    @PostMapping("findId.go")
+    public String findIdP(Model model, HttpSession session, MemberVO vo){
+        List<String> idList = memberDAO.selectIdList(vo);
+        model.addAttribute("idList",idList);
+        if(idList.size() == 0){
+            model.addAttribute("msg","일치하는 정보가 없습니다.");
+        }
+        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?" ,"findId",session);
+        return MyUtils.TEMPLATE;
+    }
+
+    @GetMapping("findPw.go")
+    public String findPw(Model model, HttpSession session, MemberVO vo){
+        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?" ,"findPw",session);
+        return MyUtils.TEMPLATE;
+    }
+
+    @PostMapping("findPw.go")
+    public String findPwP(Model model, HttpSession session, MemberVO vo){
+        if(memberDAO.findPw(vo) == true){
+            return MyUtils.REDIRECTPAGE("/user/edit/pw.go?id="+vo.getId());
+        }
+        model.addAttribute("msg","일치하는 정보가 없습니다.");
+        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?" ,"findPw",session);
+        return MyUtils.TEMPLATE;
     }
 
 }

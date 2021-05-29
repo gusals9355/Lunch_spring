@@ -62,9 +62,9 @@
 		<div class="col right_layout"> <!-- 오른쪽 레이아웃 (주 폼태그) -->
 			<form action="/board/write.do" method="post" enctype="multipart/form-data"> <!-- get방식 전송불가 -->
 				<input type="hidden" name="store" id="placeName">
-				<input type="hidden" name="mapX" id="lat">
-				<input type="hidden" name="mapY" id="lng">
-				<input type="hidden" name="star" id="star">
+				<input type="hidden" name="mapX" id="lat" value="0">
+				<input type="hidden" name="mapY" id="lng" value="0">
+				<input type="hidden" name="star" id="star" value="0">
 				<input type="hidden" name="category" id="foodType">
 				<!--<c:if test="${userInfo eq null }">
 					<div class="row"> 
@@ -83,7 +83,7 @@
 					<p><strong>※ 무분별한 게시글은 관리자에 의해 삭제될 수 있습니다.</strong></p>
 				</div>
 				<div>
-					<textarea rows="20" cols="70" name="content" maxlength="1000" required wrap="hard"></textarea>
+					<textarea rows="20" cols="70" name="content" maxlength="1000" required wrap="hard">${param.content}</textarea>
 				</div>
 				<div class="row"> <!-- 하단 블럭 -->
 					<div class="col select_file"> <!-- 파일업로드 -->

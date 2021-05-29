@@ -52,4 +52,8 @@
                          mapX=#{mapX},mapY=#{mapY}, store=#{store} where no = #{no} and id = #{id}
     </update>
 
+    <update id="upReadCount" parameterType="BoardVO">
+        update board set readcount = readcount + 1 where no = #{no}
+    </update>
+
 </mapper>

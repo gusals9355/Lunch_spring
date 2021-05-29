@@ -73,6 +73,8 @@ html, body {height: 100%;}
 /*views*/
 .title {padding: 20px;}
 .title h1 {font-size: 22px; font-weight:bold; color: brown;}
-.content {font-size: 18px;}
+.content {font-size: 15px;}
 .userInfo {margin-bottom: 10px; }
 .date {margin-left: 5px; font-size: 12px;}
+.boardBar{background-color: #EDEDED; border-top: 2px solid #CDCCCC; border-bottom: 1px solid #CDCCCC; padding-bottom: 5px; padding-top: 7px; font-weight: bold;}
+.repletab{background-color: #F8F8F8; padding-top: 12px;}

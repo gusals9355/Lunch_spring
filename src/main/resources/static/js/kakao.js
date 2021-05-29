@@ -43,7 +43,6 @@ function searchPlaces() {
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         return false;
     }
-	
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch( home+keyword, placesSearchCB); 
@@ -128,23 +127,7 @@ function displayPlaces(places) {
 				var placeName = document.getElementById('placeName');
 				placeName.value = title;
 
-                ajax(title); // 상호명
-
 			});
-
-            function ajax(store){
-
-                const init = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type':'application/json'
-                    },
-                    body: JSON.stringify(param)
-                }
-
-                fetch('')
-            }
-			
         })(marker, places[i].place_name);
 
         fragment.appendChild(itemEl);

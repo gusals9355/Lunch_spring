@@ -4,7 +4,7 @@
 	<header class="content-title">
 		<h2>비밀번호 변경</h2><br>
 	</header>
-	<form action="/user/edit/pw.do?id=${param.id }" method="post" onsubmit="return verify('비밀번호 변경');">
+	<form action="/user/edit/pw.go?id=${param.id }" method="post" onsubmit="return verify('비밀번호 변경');">
 		<div class="input_row">
 			<input class="int" type="password" name="pw" id="pw" value="${param.pw}" required autofocus maxlength="20" placeholder="비밀번호"> 
 		</div>

@@ -38,8 +38,8 @@ create table favorite(
     id varchar(20),
     reg_dt datetime default now(),
     primary key(id, no),
-    foreign key(no) references board(no),
-    foreign key(id) references member(id)
+    foreign key(no) references board(no) on delete cascade,
+    foreign key(id) references member(id) on delete cascade
 );
 
 create table log(
@@ -52,14 +52,14 @@ create table log(
 );
 
 create table reple(
-    repleno int unsigned auto_increment primary key,
-    no int unsigned,
+    no int unsigned auto_increment primary key,
+    boardno int unsigned,
     id varchar(20),
     nickname varchar(10) not null,
     reple varchar(500) not null,
     reg_dt datetime default now(),
-    foreign key(no) references board(no) on delete cascade,
-    foreign key(id) references member(id)
+    foreign key(boardno) references board(no) on delete cascade,
+    foreign key(id) references member(id) on delete cascade
 );
 
 create table manager(

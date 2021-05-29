@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row"> 
 		<div class="col"> <!-- 왼쪽 레이아웃 -->
-			좋아요list
+			<!--TODO:좋아요List!-->
 		</div>
 		<div class="col"> <!-- 중간 레이아웃 -->
 			<div class="row">
@@ -17,6 +17,8 @@
 						</form>
 					</div>
 				</div>
+				<!--카테고리!-->
+				<!-- TODO: ajax로 처리 !-->
 				<div style="display: flex; align-self: center;" class="col category-div dropdown">
 					<button style="width: 120px; height: 40px;" class="btn btn-outline-secondary dropdown-toggle" type="button" id="food" data-bs-toggle="dropdown" aria-expanded="false">
 						<span id="asd">전체</span>
@@ -46,7 +48,7 @@
 			</div>
 		</div>
 		<div class="col"> <!-- 오른쪽 레이아웃 -->
-			식사추천 알고리즘
+			<!--TODO:식사추천 알고리즘!-->
 		</div>
 	</div>
 </div>

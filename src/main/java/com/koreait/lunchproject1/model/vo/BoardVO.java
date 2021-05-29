@@ -16,7 +16,7 @@ public class BoardVO {
     private String nickname;
     private String pw;
     private String category;
-    private int readCount;
+    private int readcount;
     private String reg_dt;
     private int star;
     private String picture;
