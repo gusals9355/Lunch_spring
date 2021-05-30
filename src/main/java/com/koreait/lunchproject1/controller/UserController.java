@@ -1,5 +1,7 @@
 package com.koreait.lunchproject1.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.koreait.lunchproject1.model.dao.MemberDAO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
 import org.mindrot.jbcrypt.BCrypt;
@@ -84,15 +86,17 @@ public class UserController {
         return MyUtils.TEMPLATE;
     }
 
+    //TODO: join
     @ResponseBody
     @PostMapping("/join.go")
-    public int joinP(MemberVO vo){
+    public int joinP(MemberVO vo, Model model, HttpSession session) {
         vo.setNickname(vo.getName());
         vo.setPw(BCrypt.hashpw(vo.getPw(),BCrypt.gensalt()));
         try {
             memberDAO.insertMember(vo);
-        }catch (Exception e){ //TODO: 바로해야함
-            
+            return 1;
+        }catch (Exception e){
+            return 0;
         }
     }
 

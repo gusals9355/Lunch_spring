@@ -18,11 +18,18 @@ function asdasd() {
 	let id = form.id.value;
 	let pw = form.pw.value;
 	let pw2 = form.pw2.value;
-	let err = form.error;
-
 
 	if (pw != pw2) {
 		alert('비밀번호를 확인해주세요');
+
+		return false;
+	}
+	if(pw.length <8 || pw2.length <8){
+		document.getElementById('pwerror').innerHTML='비밀번호는 8자 이상 입력해주세요.';
+		return false;
+	}
+	if(id.length < 5){
+		document.getElementById('nmerror').innerText='아이디는 5자 이상 입력해주세요.';
 		return false;
 	}
 
@@ -46,9 +53,8 @@ function asdasd() {
 		}
 		fetch('/user/join.go',init)
 			.then(response => response.json())
-			.then(myJson =>{
-				console.log(myJson);
-				return false;
+			.then(myJson => console.log('sucess:',JSON.stringify(myJson)))
+			.catch(error => console.log('error:',error));
 				switch (myJson){
 					case 1:
 						console.log(myJson);
@@ -62,6 +68,5 @@ function asdasd() {
 						console.log(myJson);
 						return false;
 				}
-			});
 	}
 }
