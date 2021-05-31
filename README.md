@@ -4,9 +4,59 @@
 
 ---
 # "오늘 점심을 고민하는 당신을 위한 사이트"
+<br>
+<br>
+<br>
 
 [OJM사이트 링크](http://naver.com)
+<br>
 
-ex) gusalsZzang / 12345678
+Test ID) gusalsZzang / 12345678
+<br>
+<br>
+<br>
 
-<img src="/forReadme/img/ojm_jsp.png"></img>
+<img src="/forReadme/img/ojm_jsp.PNG"></img>
+<br>
+<br>
+<br>
+
+## 목차
+1. 개요
+2. 주요기능
+3. 사용기술
+4. 개발진
+5. 패치노트
+6. 패치예정
+
+<br>
+<br>
+<br>
+
++ ## 개요
+> ㅁㄴㅇㅁㄴㅇㄴㅇ<br>
+> asdasdasdasd
+<br>
+<br>
+<br>
+
+## 패치예정
+>ㅁㄴㅇㅁㄴㅇㄴㅇ
+<br>
+<br>
+<br>
+
+## 주요기능
+>ㅁㄴㅇㅁㄴㅇㄴㅇ
+<br>
+<br>
+<br>
+
+## 사용기술
+>ㅁㄴㅇㅁㄴㅇㄴㅇ
+<br>
+<br>
+<br>
+
+## 개발진
+>ㅁㄴㅇㅁㄴㅇㄴㅇ
