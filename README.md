@@ -1,3 +1,3 @@
 # Lunch_spring
 
-<img src="SampleImg.png" width="300">
+<img src="ojm.png" width="300">
