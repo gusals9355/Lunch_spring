@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/forReadme/img/ojm1.png" width="300"></img>
+  <img src="/forReadme/img/ojm.png" width="300"></img>
 </p>
 
 ---
