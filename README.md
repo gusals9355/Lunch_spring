@@ -9,4 +9,4 @@
 
 ex) gusalsZzang / 12345678
 
-<img src="/forReadme/img/ojm_jsp.png" width="300"></img>
+<img src="/forReadme/img/ojm_jsp.png"></img>
