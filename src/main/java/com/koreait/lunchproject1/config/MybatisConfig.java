@@ -34,6 +34,4 @@ public class MybatisConfig {
             return new SqlSessionTemplate(sqlSessionFactory);
         }
 
-        @Autowired
-        LoginInterceptor loginInterceptor;
 }

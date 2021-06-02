@@ -6,9 +6,9 @@
 			<h1>회원가입</h1>
 			<p>	&nbsp; 환영합니다!</p>
 		</header>
-		<form action="join.go" method="post" id="form" onsubmit="return asdasd();">
+		<form action="join.go" method="post" id="form">
 			<div class="input_row">
-				<input class="int" type="text" name="name" placeholder="이름" maxlength="10" required="required" value="${param.name }">
+				<input class="int" type="text" name="name" id="name" placeholder="이름" maxlength="10" required="required" value="${param.name }">
 			</div>
 			<div class="input_row">
 				<input class="int" type="email" name="email" placeholder="이메일" maxlength="50" required="required" value="${param.email }">
@@ -38,7 +38,7 @@
 				<input class="int" type="password" name="pw2" id="pw2" placeholder="비밀번호확인" maxlength="20" required="required">
 			</div>
 			<div class="input_row">
-				<input class="btn btn-success" type="submit" value="회원가입">
+				<input class="btn btn-success" type="button" value="회원가입" onclick="asdasd();">
 			</div>
 		</form>
 	</section>

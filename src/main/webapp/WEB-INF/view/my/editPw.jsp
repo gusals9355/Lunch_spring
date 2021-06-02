@@ -4,7 +4,7 @@
 	<header class="content-title">
 		<h2>비밀번호 변경</h2><br>
 	</header>
-	<form action="/user/edit/pw.go?id=${param.id }" method="post" onsubmit="return verify('비밀번호 변경');">
+	<form action="/user/edit/pw.go?id=${param.id }" method="post" onsubmit="return pw_check();">
 		<div class="input_row">
 			<input class="int" type="password" name="pw" id="pw" value="${param.pw}" required autofocus maxlength="20" placeholder="비밀번호"> 
 		</div>
@@ -12,7 +12,7 @@
 			<input class="int" type="password" name="pw2" id="pw2" value="${param.pw }" required maxlength="20" placeholder="비밀번호확인"> 
 		</div>
 		<div class="error">
-			<p>${msg }
+			<p id="pwerror">${msg }
 		</div>
 		<div class="submits">
 			<button type="button" class="cancel btn btn-outline-secondary" onclick="againCheck('ojm','취소')">취소</button>
@@ -20,4 +20,4 @@
 		</div>
 	</form>
 </div>
-<script src="/js/join.js"></script>
+<script src="/js/edit_pw.js"></script>
