@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository("memberDAO")
 public interface MemberDAO {
-    boolean insertMember(MemberVO bean);
+    int insertMember(MemberVO bean);
 
     int getAllPage(MemberVO vo);
 

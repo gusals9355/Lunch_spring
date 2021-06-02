@@ -7,7 +7,7 @@
 		<div class="col"> <!-- 왼쪽 레이아웃 -->
 			<!--TODO:좋아요List!-->
 		</div>
-		<div class="col"> <!-- 중간 레이아웃 -->
+		<div class="col-8"> <!-- 중간 레이아웃 -->
 			<div class="row">
 				<div class="col">
 					<div class="search_store"> <!-- 검색블럭 -->
@@ -20,7 +20,7 @@
 				<!--카테고리!-->
 				<!-- TODO: ajax로 처리 !-->
 				<div style="display: flex; align-self: center;" class="col category-div dropdown">
-					<button style="width: 120px; height: 40px;" class="btn btn-outline-secondary dropdown-toggle" type="button" id="food" data-bs-toggle="dropdown" aria-expanded="false">
+					<button style="width: 80px; height: 40px;" class="btn btn-outline-secondary dropdown-toggle" type="button" id="food" data-bs-toggle="dropdown" aria-expanded="false">
 						<span id="asd">전체</span>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="food">
@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="map_wrap"> <!-- 지도블럭 -->
-				<div id="map" style="width:500px;height:400px;position:relative;overflow:hidden;"></div>
+				<div id="map" class="row" style="max-width:480px;height:400px;position:relative;overflow:hidden;"></div>
 				<div id="menu_wrap" class="bg_white"> 
 					<div class="option"></div>
 					<ul id="placesList"></ul>

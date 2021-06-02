@@ -40,13 +40,13 @@ li {list-style-type: none;}
 html, body {height: 100%;}
 /*login */
 #container{margin: 0 auto; width:768px; display: flex; justify-content: center; padding-top: 50px; padding-bottom: 50px; border: 1px solid #eaeaea;}
-.input_row {width: 400px; height: 50px;}
+.input_row {width: 400px; height: 50px; justify-content: center;}
 .input_row > p {font-size: 13px; color: red;}
 .int{width: 100%; height: 30px;}
 .btn{width:100%; height: 50px;}
 .txt-bar{margin: 0 4px;}
 .join{font-weight: bold;}
-.info{margin-top: 30px; margin-left: 63px;}
+.info{margin-top: 30px;}
 .content-title {border-bottom: 1px solid #eaeaea; margin-bottom: 20px;}
 .content-title > h1 {font-size: 19px;}
 .content-title > p {font-size: 13px;}

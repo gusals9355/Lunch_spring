@@ -1,31 +1,26 @@
 package com.koreait.lunchproject1.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.koreait.lunchproject1.model.dao.MemberDAO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
+import com.koreait.lunchproject1.service.UserServiceImpl;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.lang.reflect.Member;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "/user/*")
 public class UserController {
 
     @Autowired
+    private UserServiceImpl userService;
+    @Autowired
     MemberDAO memberDAO;
+
 
     @GetMapping("/login.go")
     public String login(Model model, HttpSession session){
@@ -87,17 +82,13 @@ public class UserController {
     }
 
     //TODO: join
-    @ResponseBody
     @PostMapping("/join.go")
-    public int joinP(MemberVO vo, Model model, HttpSession session) {
-        vo.setNickname(vo.getName());
-        vo.setPw(BCrypt.hashpw(vo.getPw(),BCrypt.gensalt()));
-        try {
-            memberDAO.insertMember(vo);
-            return 1;
-        }catch (Exception e){
-            return 0;
+    public String joinP(MemberVO vo, Model model, HttpSession session) {
+        if(userService.joinP(vo)){
+            System.out.println("오류");
+            return MyUtils.REDIRECTPAGE("join.go");
         }
+        return MyUtils.REDIRECTPAGE("/ojm");
     }
 
     @GetMapping("/edit/nickname.do")
