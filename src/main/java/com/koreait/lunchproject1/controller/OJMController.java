@@ -20,19 +20,20 @@ public class OJMController {
     BoardDAO boardDAO;
     @Autowired
     MemberDAO memberDAO;
+
     @GetMapping("/ojm")
     public String ojm(Model model, HttpSession session, HttpServletResponse response) {
-        final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
-        Cookie cookie = new Cookie("view",null); //조회수에 사용될 쿠키
-        cookie.setComment("게시판 조회 확인");
-        cookie.setMaxAge(86400); // 쿠키유효시간 1일 60*60*24
-        response.addCookie(cookie);
-
-        String path = new File("").getAbsolutePath();
-        System.out.println(path);
-        model.addAttribute("typelist",typelist);
-        model.addAttribute("list", boardDAO.getAllBoard());
-        MyUtils.setTemplate(model, "오늘 점심은 뭐먹지?", "/ojm", session);
+//        final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
+//        Cookie cookie = new Cookie("view",null); //조회수에 사용될 쿠키
+//        cookie.setComment("게시판 조회 확인");
+//        cookie.setMaxAge(86400); // 쿠키유효시간 1일 60*60*24
+//        response.addCookie(cookie);
+//
+//        String path = new File("").getAbsolutePath();
+//        System.out.println(path);
+//        model.addAttribute("typelist",typelist);
+//        model.addAttribute("list", boardDAO.getAllBoard());
+        MyUtils.setTemplate(model, "오늘 점심은 뭐먹지?", "ojm", session);
         return MyUtils.TEMPLATE;
     }
 
