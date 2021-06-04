@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="container" style="border: 1px solid #eaeaea; max-width: 768px;padding-top: 50px; padding-bottom: 50px;">
+<div class="container">
 	<section class="row">
-		<header class="content-title" style="text-align: left">
+		<header class="content-title">
 			<h1>로그인을 해주세요</h1>
 			<p>아직 아이디가 없다면 회원가입을 해주세요</p>
 		</header>
-		<form action="login.go" method="post" class="row" style="justify-content: center">
+		<form action="login.go" method="post" class="row formt">
 		<div class="input_row">
 			<input class="int" type="text" name="id" placeholder="아이디" required maxlength="20" value="${param.id }">
 		</div>
@@ -20,7 +20,7 @@
 			<input class="btn btn-success" type="submit" value="로그인">
 		</div>
 		</form>
-		<div class="info" style="text-align: center">
+		<div class="info sub1">
 			<a href="join.go" class="join">회원가입 </a> <span class="txt-bar">|</span>
 			<a href="findId.go">아이디찾기 </a> <span class="txt-bar">|</span>
 			<a href="findPw.go">비밀번호찾기 </a>

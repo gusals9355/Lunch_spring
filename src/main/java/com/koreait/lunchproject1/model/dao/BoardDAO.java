@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository("boardDAO")
 public interface BoardDAO {
-    void insertBoard(BoardVO vo);
+    int insertBoard(BoardVO vo);
     void insertPicture(BoardVO vo);
 
     void insertHeart(BoardVO vo);

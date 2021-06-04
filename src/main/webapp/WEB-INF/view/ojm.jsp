@@ -8,12 +8,12 @@
 			<!--TODO:좋아요List!-->
 		</div>
 		<div class="col-8"> <!-- 중간 레이아웃 -->
-			<div class="row">
+			<div class="row" style="justify-content: center">
 				<div class="col">
 					<div class="search_store"> <!-- 검색블럭 -->
 						<form onsubmit="searchPlaces(); return false;">
-							<label>매장찾기 <input type="text" value="코리아it아카데미" id="keyword" size="40"></label> 
-							<button type="submit" style="display: none;">검색하기</button> 
+							<label>매장찾기 <input type="text" value="코리아it아카데미" id="keyword" size="30"></label>
+							<button type="submit" style="display: none;">검색하기</button>
 						</form>
 					</div>
 				</div>

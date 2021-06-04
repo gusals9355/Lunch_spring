@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="container">
-	<section class="content">
+<div class="container">
+	<section class="row">
 		<header class="content-title">
 			<h1>회원가입</h1>
 			<p>	&nbsp; 환영합니다!</p>
 		</header>
-		<form action="join.go" method="post" id="form">
+		<form action="join.go" method="post" id="form" class="row formt">
 			<div class="input_row">
 				<input class="int" type="text" name="name" id="name" placeholder="이름" maxlength="10" required="required" value="${param.name }">
 			</div>
