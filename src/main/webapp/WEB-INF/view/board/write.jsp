@@ -6,19 +6,19 @@
 <link rel="stylesheet" href="/css/write.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05a3bed3cf436895037eb617468dc965&libraries=services"></script>
 
-<div class="container">
+<div class="containerW">
 	<div class="row layout">
 		<div class="col left_layout"> <!-- 왼쪽 레이아웃 -->
-			<div class="search_store"> <!-- 검색블럭 -->
+			<div class="row search_store" style="justify-content: center"> <!-- 검색블럭 -->
 				<form onsubmit="searchPlaces(); return false;">
-					<label>매장찾기 : <input type="text" id="keyword" size="40" autofocus></label> 
+					<label>매장찾기 : <input type="text" id="keyword" size="40" autofocus style="max-width: 300px;"></label>
 					<button type="submit" style="display: none;">검색하기</button> 
 					<p id="markerMsg"></p>
 				</form>
 			</div>
 			
-			<div class="map_wrap"> <!-- 지도블럭 -->
-				<div id="map" style="height:400px;position:relative;overflow:hidden;"></div>
+			<div class="row map_wrap" style="justify-content: center"> <!-- 지도블럭 -->
+				<div id="map" style="max-width:480px;height:400px;position:relative;overflow:hidden;"></div>
 				<div id="menu_wrap" class="bg_white"> 
 					<div class="option"></div>
 					<ul id="placesList"></ul>
@@ -76,14 +76,14 @@
 						</div>
 					</div>
 				</c:if>!-->
-				<div>
-					<input type="text" name="title" value="${param.title}" maxlength="30" placeholder="제목" size="60" required>
+				<div class="row" style="justify-content: center">
+					<input type="text" name="title" value="${param.title}" maxlength="30" placeholder="제목" required style="max-width: 492px; max-height: 28px;">
 				</div>
 				<div class="danger-log"> <!-- danger log -->
 					<p><strong>※ 무분별한 게시글은 관리자에 의해 삭제될 수 있습니다.</strong></p>
 				</div>
-				<div>
-					<textarea rows="20" cols="70" name="content" maxlength="1000" required wrap="hard">${param.content}</textarea>
+				<div class="row" style="justify-content: center; margin-bottom: 20px;">
+					<textarea rows="20" name="content" maxlength="1000" required wrap="hard" style="max-width: 579px; max-height: 482px;">${param.content}</textarea>
 				</div>
 				<div class="row"> <!-- 하단 블럭 -->
 					<div class="col select_file"> <!-- 파일업로드 -->

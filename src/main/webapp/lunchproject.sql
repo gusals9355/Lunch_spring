@@ -1,4 +1,4 @@
-create database lunchproject default character set utf8 collate utf8_general_ci
+create database lunchproject default character set utf8 collate utf8_general_ci;
 create table member(
     name varchar(10) not null,
     nickname varchar(10) not null,
@@ -9,7 +9,7 @@ create table member(
     point int default 0,
     ranked char(10) default '소식가' check(ranked in('소식가','미식가','식신','관리자')),
     reg_dt datetime default now()
-)default character set utf8 collate utf8_general_ci;
+);
 
 create table board(
     no int unsigned auto_increment primary key,
@@ -25,14 +25,14 @@ create table board(
     mapX decimal(20,16) not null,
     mapy double(20,16) not null,
 	foreign key(id) references member(id) on delete cascade
-)default character set utf8 collate utf8_general_ci;
+);
 
 create table picture(
     no int unsigned auto_increment primary key,
     boardno int unsigned,
     picture varchar(2000),
     foreign key (boardno) references board(no) on delete cascade
-)default character set utf8 collate utf8_general_ci;
+);
 
 create table favorite(
     no int unsigned,
@@ -41,7 +41,7 @@ create table favorite(
     primary key(id, no),
     foreign key(no) references board(no) on delete cascade,
     foreign key(id) references member(id) on delete cascade
-)default character set utf8 collate utf8_general_ci;
+);
 
 create table log(
     no int unsigned auto_increment primary key,
@@ -50,7 +50,7 @@ create table log(
     reg_dt datetime default now(),
     attendance boolean default 0,
     foreign key(id) references member(id) on delete cascade
-)default character set utf8 collate utf8_general_ci;
+);
 
 create table reple(
     no int unsigned auto_increment primary key,
@@ -61,7 +61,7 @@ create table reple(
     reg_dt datetime default now(),
     foreign key(boardno) references board(no) on delete cascade,
     foreign key(id) references member(id) on delete cascade
-)default character set utf8 collate utf8_general_ci;
+);
 
 create table manager(
     code char(8) not null unique

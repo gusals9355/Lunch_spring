@@ -30,7 +30,7 @@ public class OJMController {
         response.addCookie(cookie);
 
         String path = new File("").getAbsolutePath();
-        System.out.println(path);
+//        System.out.println(path);
         model.addAttribute("typelist",typelist);
         model.addAttribute("list", boardDAO.getAllBoard());
         MyUtils.setTemplate(model, "오늘 점심은 뭐먹지?", "ojm", session);

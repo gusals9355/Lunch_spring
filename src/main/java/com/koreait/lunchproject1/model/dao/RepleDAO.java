@@ -1,11 +1,12 @@
 package com.koreait.lunchproject1.model.dao;
 
 import com.koreait.lunchproject1.model.vo.RepleVO;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("repleDAO")
+@Mapper
 public interface RepleDAO {
 
     void insertReple(RepleVO vo);

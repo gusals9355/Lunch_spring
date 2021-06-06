@@ -12,7 +12,7 @@
 				<div class="col">
 					<div class="search_store"> <!-- 검색블럭 -->
 						<form onsubmit="searchPlaces(); return false;">
-							<label>매장찾기 <input type="text" value="코리아it아카데미" id="keyword" size="30"></label>
+							<label>매장찾기 <input type="text" value="코리아it아카데미" id="keyword" style="max-width: 300px;"></label>
 							<button type="submit" style="display: none;">검색하기</button>
 						</form>
 					</div>
@@ -51,13 +51,15 @@
 			<!--TODO:식사추천 알고리즘!-->
 		</div>
 	</div>
+	<div>
+		<c:forEach var="item" items="${list }">
+			<input type="hidden" name="no" value="${item.no}">
+			<input type="hidden" name="store" value="${item.store}">
+			<input type="hidden" name="mapX" value="${item.mapX}">
+			<input type="hidden" name="mapY" value="${item.mapY}">
+		</c:forEach>
+	</div>
 </div>
-<c:forEach var="item" items="${list }">
-	<input type="hidden" name="no" value="${item.no}">
-	<input type="hidden" name="store" value="${item.store}">
-	<input type="hidden" name="mapX" value="${item.mapX}">
-	<input type="hidden" name="mapY" value="${item.mapY}">
-</c:forEach>
 <script>
 
 </script>

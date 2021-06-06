@@ -53,6 +53,7 @@ html, body {height: 100%;}
 .content-title {border-bottom: 1px solid #eaeaea; margin-bottom: 20px; text-align: left;}
 .content-title > h1 {font-size: 19px;}
 .content-title > p {font-size: 13px;}
+.error{ width: 400px;}
 .error > p {font-size: 13px; color: red;}
 .submits { display: flex; justify-content: space-evenly;}
 .sub{width: 114px; height: 36px;}

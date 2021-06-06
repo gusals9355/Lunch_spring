@@ -144,36 +144,61 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public String loginP(MemberVO vo, HttpSession session, Model model) {
-        String hashedPw = "";
-        try {
-            hashedPw = memberDAO.getHashedPw(vo);
-            if (BCrypt.checkpw(vo.getPw(), hashedPw)) { // 로그인 성공
-                //로그인 성공 시 포인트를 획득함
-                //로그인 포인트는 하루에 한번만 받을 수 있음
-                vo.setLog("로그인");
-                vo.setLoginPoint(100);
-
-                memberDAO.log(vo); //로그인시 로그들을 db에 저장
-                try {
-                    memberDAO.logCheck(vo); //하루 최초 로그인 시 출석체크가 되는 메소드
-                    memberDAO.pointUp(vo);
-                } catch (Exception e) {
-                } finally {
-                    session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
-                    return MyUtils.REDIRECTPAGE("/ojm");
-                }
-            }
-            if (hashedPw.equals("") || !BCrypt.checkpw(vo.getPw(), hashedPw)) { //비번 틀릴경우
-                model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-                MyUtils.setTemplate(model, "로그인 | 오점뭐?", "login", session);
-                return MyUtils.TEMPLATE;
-            }
-        } catch (Exception e) {
+        String hashpW=memberDAO.getHashedPw(vo);
+        if(hashpW == null) {
             model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
             MyUtils.setTemplate(model, "로그인 | 오점뭐?", "login", session);
             return MyUtils.TEMPLATE;
         }
-        return "";
+        if(BCrypt.checkpw(vo.getPw(),memberDAO.getHashedPw(vo))){
+            vo.setLog("로그인");
+            vo.setLoginPoint(100);
+            memberDAO.log(vo);
+            try {
+                memberDAO.logCheck(vo);
+                memberDAO.pointUp(vo);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
+            return MyUtils.REDIRECTPAGE("/ojm");
+        }else{
+            model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+            MyUtils.setTemplate(model, "로그인 | 오점뭐?", "login", session);
+            return MyUtils.TEMPLATE;
+        }
+//        String hashedPw = "";
+//        try {
+//            System.out.println(vo.getPw());
+//            hashedPw = memberDAO.getHashedPw(vo);
+//            System.out.println(hashedPw);
+//            if (BCrypt.checkpw(vo.getPw(), hashedPw)) { // 로그인 성공
+//                //로그인 성공 시 포인트를 획득함
+//                //로그인 포인트는 하루에 한번만 받을 수 있음
+//                vo.setLog("로그인");
+//                vo.setLoginPoint(100);
+//
+//                memberDAO.log(vo); //로그인시 로그들을 db에 저장
+//                try {
+//                    memberDAO.logCheck(vo); //하루 최초 로그인 시 출석체크가 되는 메소드
+//                    memberDAO.pointUp(vo);
+//                } catch (Exception e) {
+//                } finally {
+//                    session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
+//                    return MyUtils.REDIRECTPAGE("/ojm");
+//                }
+//            }
+//            if (hashedPw.equals("") || !BCrypt.checkpw(vo.getPw(), hashedPw)) { //비번 틀릴경우
+//                model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+//                MyUtils.setTemplate(model, "로그인 | 오점뭐?", "login", session);
+//                return MyUtils.TEMPLATE;
+//            }
+//        } catch (Exception e) {
+//            model.addAttribute("msg", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+//            MyUtils.setTemplate(model, "로그인 | 오점뭐?", "login", session);
+//            return MyUtils.TEMPLATE;
+//        }
+//        return "";
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.koreait.lunchproject1.model.dao;
 
 import com.koreait.lunchproject1.model.vo.MemberVO;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="/css/ranking.css">
 <div class="container">
 	<div class="row">
-		<div class="mybox col-1">
+		<div class="mybox col-2">
 			순위
 		</div>
-		<div class="mybox col-3">
+		<div class="mybox col-4">
 			아이디
 		</div>
 		<div class="mybox col-2">
@@ -16,33 +17,28 @@
 		<div class="mybox col-2">
 			포인트
 		</div>
-		<div class="mybox col-4">
+		<div class="mybox col-2">
 			가입날짜
 		</div>
 	</div>
-	<div class="row">
-	<div class="col-1" id="count"></div>
-	<div class="col-3" id="nickName"></div>
-	<div class="col-2" id="rank"></div>
-	<div class="col-2" id="point"></div>
-	<div class="col-4" id="reg_dt"></div>
-	</div>
 	<c:forEach var="i" items="${rankingList}" varStatus="status">
 		<div class="row">
-			<div class="mybox col-1">
-				${pageNum + status.count}
-			</div>
-			<div class="mybox col-3">
-				${i.nickname }(${i.id })
-			</div>
 			<div class="mybox col-2">
-				${i.ranked }
-			</div>
-			<div class="mybox col-2">
-				${i.point }
+				<c:out value="${pageNum + status.count}"/>
 			</div>
 			<div class="mybox col-4">
-				${i.reg_dt }
+				<c:out value="${i.nickname}"/>
+				<c:out value="(${i.id})"/>
+			</div>
+			<div class="mybox col-2">
+				<c:out value="${i.ranked }"/>
+			</div>
+			<div class="mybox col-2">
+				<c:out value="${i.point }"/>
+			</div>
+			<fmt:parseDate value="${i.reg_dt}" var="reg_dt" pattern="yyyy-MM-dd"/>
+			<div class="mybox col-2">
+				<fmt:formatDate value="${reg_dt}" pattern="yyyy-MM-dd"/>
 			</div>
 		</div>
 	</c:forEach>

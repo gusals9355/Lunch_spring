@@ -1,11 +1,12 @@
 package com.koreait.lunchproject1.model.dao;
 
 import com.koreait.lunchproject1.model.vo.BoardVO;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("boardDAO")
+@Mapper
 public interface BoardDAO {
     int insertBoard(BoardVO vo);
     void insertPicture(BoardVO vo);
