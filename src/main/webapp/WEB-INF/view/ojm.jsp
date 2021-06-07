@@ -60,7 +60,4 @@
 		</c:forEach>
 	</div>
 </div>
-<script>
-
-</script>
 <script src="/js/ojm.js"></script>

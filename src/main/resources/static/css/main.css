@@ -81,4 +81,4 @@ html, body {height: 100%;}
 .userInfo {margin-bottom: 10px; }
 .date {margin-left: 5px; font-size: 12px;}
 .boardBar{background-color: #EDEDED; border-top: 2px solid #CDCCCC; border-bottom: 1px solid #CDCCCC; padding-bottom: 5px; padding-top: 7px; font-weight: bold;}
-.repletab{background-color: #F8F8F8; padding-top: 12px;}
+.repletab{background-color: #F8F8F8; padding-top: 12px; padding-bottom: 12px; justify-content: center;}

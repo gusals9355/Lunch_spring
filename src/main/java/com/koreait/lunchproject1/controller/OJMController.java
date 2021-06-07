@@ -3,6 +3,7 @@ package com.koreait.lunchproject1.controller;
 import com.google.gson.Gson;
 import com.koreait.lunchproject1.model.dao.BoardDAO;
 import com.koreait.lunchproject1.model.dao.MemberDAO;
+import com.koreait.lunchproject1.model.vo.BoardVO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +33,12 @@ public class OJMController {
         cookie.setComment("게시판 조회 확인");
         cookie.setMaxAge(86400); // 쿠키유효시간 1일 60*60*24
         response.addCookie(cookie);
-
 //        String path = new File("").getAbsolutePath();
         model.addAttribute("typelist",typelist);
         model.addAttribute("list", boardDAO.getAllBoard());
         MyUtils.setTemplate(model, "오늘 점심은 뭐먹지?", "ojm", session);
         return MyUtils.TEMPLATE;
     }
-
     @GetMapping("/regi_manager.do")
     public String regi_manager(Model model, HttpSession session){
 

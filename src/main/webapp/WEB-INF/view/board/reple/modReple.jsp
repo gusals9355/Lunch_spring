@@ -4,21 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/boot/bootstrap.css"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/write.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05a3bed3cf436895037eb617468dc965&libraries=services"></script>
-<div class="container">
+<div class="containerW">
 	<div class="row layout">
 	
 		<div class="col left_layout"> <!-- 왼쪽 레이아웃 -->
 			<div class="imageBlock"> <!-- 사진블럭 -->
 				<c:forEach var="item" items="#{picture}">
-					<img src="/upload/${item}" onerror="this.src='/img/noImage.gif';" width="550" height="300">
+					<img src="/upload/${item}" onerror="this.src='/img/noImage.gif';" width="380" height="300">
 				</c:forEach>
-				<c:if test="${boards.isFav eq 0 }">
-					<a href="/board/heart?no=${param.no }&fav=1"><i class="bi bi-heart" style="color: red"></i></a>
-				</c:if>
-				<c:if test="${boards.isFav eq 1 }">
-					<a href="/board/heart?no=${param.no }&fav=0"><i class="bi bi-heart-fill" style="color: red"></i></a>
-				</c:if>
 			</div>
 			<div class="row"> <!-- 하단블럭 -->
 				<p class="msg">${msg }</p>

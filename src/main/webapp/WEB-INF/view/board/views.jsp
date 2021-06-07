@@ -5,20 +5,15 @@
 <!-- <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/boot/bootstrap.css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<div class="container">
+<link rel="stylesheet" href="/css/write.css">
+<div class="containerW">
 	<div class="row layout">
 		<div class="col left_layout"> <!-- 왼쪽 레이아웃 -->
 			<div class="imageBlock"> <!-- 사진블럭 -->
 				<c:set var="store" value="${boards.store}"/>
 				<c:forEach var="item" items="#{picture}">
-					<img src="/upload/boardImg/<c:out value="${store}"/>/${item}" onerror="this.src='/img/noImage.gif';" width="550" height="300">
+					<img src="/upload/boardImg/<c:out value="${store}"/>/${item}" onerror="this.src='/img/noImage.gif';" width="380" height="300">
 				</c:forEach>
-				<c:if test="${boards.isFav eq 0 }">
-				<a href="/board/heart?no=${param.no }&fav=1"><i class="bi bi-heart" style="color: red"></i></a>
-				</c:if>
-				<c:if test="${boards.isFav eq 1 }">
-				<a href="/board/heart?no=${param.no }&fav=0"><i class="bi bi-heart-fill" style="color: red"></i></a>
-				</c:if>
 			</div>
 			<div class="row"> <!-- 하단블럭 -->
 				<p class="msg">${msg }</p>
@@ -48,8 +43,18 @@
 					조회: <c:out value="${boards.readcount}"/>
 				</div>
 			</div>
-			<div class="title">
+			<div class="row title">
 				<h1>${boards.title }</h1>
+				<!--
+				<div>
+					<c:if test="${boards.isFav eq 0 }">
+						<a href="/board/heart?no=${param.no }&fav=1"><i class="bi bi-heart" style="color: red"></i></a>
+					</c:if>
+					<c:if test="${boards.isFav eq 1 }">
+						<a href="/board/heart?no=${param.no }&fav=0"><i class="bi bi-heart-fill" style="color: red"></i></a>
+					</c:if>
+				</div>
+				!-->
 			</div>
 			<div class="content" style="white-space: pre-wrap;">${boards.content }</div>
 			<hr>
@@ -72,8 +77,8 @@
 				</c:forEach>
 				<hr>
 				<form action="/board/views.do?boardno=${param.no }" method="post">
-					<div class="col repletab">
-						<textarea rows="2" cols="50" name="reple" maxlength="450" required wrap="hard"></textarea>
+					<div class="row repletab">
+						<textarea rows="2" name="reple" maxlength="450" required wrap="hard" style="max-width: 400px;"></textarea>
 						<input type="submit" class="btn btn-success" value="등록" style="width: 50px; height: 30px;margin-bottom: 30px"></input>
 					</div>
 				</form>
@@ -94,3 +99,4 @@
 		</div>
 	</div>
 </div>
+<script src="/js/write.js"></script>
