@@ -63,7 +63,7 @@
         select if(count(*)=1,1,0) from member where id=#{id} and name=#{name} and email=#{email}
     </select>
 
-    <select id="regiManager" resultType="String" parameterType="String">
+    <select id="regiManager" resultType="String">
         select code from manager where code = #{code}
     </select>
 

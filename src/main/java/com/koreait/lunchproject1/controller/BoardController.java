@@ -6,6 +6,7 @@ import com.koreait.lunchproject1.model.dao.RepleDAO;
 import com.koreait.lunchproject1.model.vo.BoardVO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
 import com.koreait.lunchproject1.model.vo.RepleVO;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,6 @@ public class BoardController {
     @PostMapping("/write.do")
     public String boardWrite(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException {
         List<BoardVO> list1 =boardDAO.getAllBoard();
-        System.out.println(vo.getCategory());
         /*TODO: response할때 model.set말고 좋은 방법 찾아야함 jsp코드가 더 깔끔하겠다ㅅㅂ..*/
         for (BoardVO v:list1) {
             if(vo.getStore()== null||vo.getCategory().equals("") ||vo.getStar() == 0 || vo.getMapX() == 0 || vo.getMapY() == 0 || v.getStore().equals(vo.getStore())){
@@ -62,16 +62,19 @@ public class BoardController {
                 return MyUtils.TEMPLATE;
             }
         }
-        final String uploadPath = "C:/Users/user/Desktop/LunchProject-main/Lunch_spring/src/main/resources/static/upload";
+
+        final String uploadPath = "D:/JavaBackendClass/lunchproject1/src/main/webapp/upload/boardImg";
         UUID uuid = UUID.randomUUID();
 
         List<String> list = new ArrayList<>();
         for (MultipartFile m:file) {
             list.add(uuid+"_"+m.getOriginalFilename());
         }
-
+        String boardStore =vo.getStore();
+        String targetFolder = uploadPath+"/"+boardStore;
+        new File(targetFolder).mkdirs();
         for(int i=0; i< file.length; i++){
-            File target = new File(uploadPath, list.get(i));
+            File target = new File(uploadPath+"/"+boardStore, list.get(i));
 
             try {
                 FileCopyUtils.copy(file[i].getBytes(), target);
@@ -127,9 +130,14 @@ public class BoardController {
     }
 
     @GetMapping("/delBoard.do")
-    public String delBoard(Model model, BoardVO boardVO, HttpSession session, @RequestParam(value = "no") int no){
+    public String delBoard(Model model, BoardVO boardVO, HttpSession session, @RequestParam(value = "no") int no) throws IOException {
+
+        final String uploadPath = "D:/JavaBackendClass/lunchproject1/src/main/webapp/upload/boardImg";
         boardVO.setNo(no);
         boardVO.setId(MyUtils.getLoginUserID(session));
+        String store = boardDAO.getBoard(boardVO).getStore();
+        File folder = new File(uploadPath+"/"+ store);
+        FileUtils.deleteDirectory(folder); //폴더의 하위 파일들까지 모두 연쇄삭제
         boardDAO.delBoard(boardVO);
         MemberVO memberVO = new MemberVO();
         memberVO.setId(MyUtils.getLoginUserID(session));
@@ -181,16 +189,19 @@ public class BoardController {
     }
     @PostMapping("/modBoard.do")
     public String modBoardP(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException{
-        final String uploadPath = "C:/Users/user/Desktop/LunchProject-main/Lunch_spring/src/main/resources/static/upload";
+        final String uploadPath = "D:/JavaBackendClass/lunchproject1/src/main/webapp/upload/boardImg";
         UUID uuid = UUID.randomUUID();
 
         List<String> list = new ArrayList<>();
         for (MultipartFile m:file) {
             list.add(uuid+"_"+m.getOriginalFilename());
         }
-
+        String boardStore =vo.getStore();
+        String targetFolder = uploadPath+"/"+boardStore;
+        FileUtils.deleteDirectory(new File(uploadPath+"/"+ boardStore));
+        new File(targetFolder).mkdirs();
         for(int i=0; i< file.length; i++){
-            File target = new File(uploadPath, list.get(i));
+            File target = new File(uploadPath+"/"+boardStore, list.get(i));
 
             try {
                 FileCopyUtils.copy(file[i].getBytes(), target);

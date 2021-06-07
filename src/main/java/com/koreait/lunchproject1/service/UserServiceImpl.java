@@ -158,7 +158,6 @@ public class UserServiceImpl implements UserService{
                 memberDAO.logCheck(vo);
                 memberDAO.pointUp(vo);
             }catch (Exception e){
-                e.printStackTrace();
             }
             session.setAttribute("userInfo", memberDAO.getUserInfo(vo));
             return MyUtils.REDIRECTPAGE("/ojm");
