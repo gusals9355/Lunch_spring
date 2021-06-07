@@ -8,10 +8,10 @@
 <br>
 <br>
 
-[OJM사이트 링크](http://naver.com)
+[OJM사이트 링크](http://101.101.219.75:8080/ojm)
 <br>
 
-Test ID) gusalsZzang / 12345678
+
 <br>
 <br>
 <br>
