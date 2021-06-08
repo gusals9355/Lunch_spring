@@ -8,3 +8,7 @@ spring:
     view:
       prefix: /WEB-INF/view/
       suffix: .jsp
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
