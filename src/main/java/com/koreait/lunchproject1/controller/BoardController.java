@@ -35,11 +35,12 @@ public class BoardController {
     RepleDAO repleDAO;
     @Autowired
     MemberDAO memberDAO;
-
+    @Autowired
+    HttpSession session;
     final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
-
+    
     @GetMapping("/write.do")
-    public String boardWrite(Model model, HttpSession session){
+    public String boardWrite(Model model){
 
         model.addAttribute("typelist",typelist);
         MyUtils.setTemplate(model,"글 등록 | 오늘 점심 뭐먹지?","board/write",session);
@@ -47,7 +48,7 @@ public class BoardController {
     }
 
     @PostMapping("/write.do")
-    public String boardWrite(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException {
+    public String boardWrite(MultipartFile[] file, Model model, BoardVO vo, HttpServletRequest request) throws IOException {
         List<BoardVO> list1 =boardDAO.getAllBoard();
         for (BoardVO v:list1) {
             if(vo.getStore()== null||vo.getCategory().equals("") ||vo.getStar() == 0 || vo.getMapX() == 0 || vo.getMapY() == 0 || v.getStore().equals(vo.getStore())){
@@ -100,26 +101,26 @@ public class BoardController {
     }
 
     @GetMapping("/views.do")
-    public String views(Model model, BoardVO boardVO, RepleVO repleVO, HttpSession session, @RequestParam(value = "no") int no,
+    public String views(Model model, BoardVO boardVO, RepleVO repleVO, @RequestParam(value = "no") int no,
                         @CookieValue(name="view")String cookie, HttpServletResponse response){
         repleVO.setNo(no);
         repleVO.setBoardno(boardVO.getNo());
         boardVO.setId(MyUtils.getLoginUserID(session));
-
         System.out.println(cookie);
         if(!(cookie.contains(String.valueOf(boardVO.getId())+"."+no))){
             cookie+= boardVO.getId()+"."+no+"/";
             boardDAO.upReadCount(boardVO);
         }
+        boardVO = boardDAO.getBoard(boardVO);
         response.addCookie(new Cookie("view", cookie));
         model.addAttribute("picture",boardDAO.getPicture(no));
-        model.addAttribute("boards",boardDAO.getBoard(boardVO));
+        model.addAttribute("boards",boardVO);
         model.addAttribute("reples", repleDAO.getReples(repleVO));
-        MyUtils.setTemplate(model,boardVO.getTitle(),"board/views",session);
+        MyUtils.setTemplate(model,boardVO.getTitle()+" | 오늘 점심 뭐먹지?","board/views",session);
         return MyUtils.TEMPLATE;
     }
     @PostMapping("/views.do")
-    public String viewsP(Model model, RepleVO repleVO, HttpSession session){
+    public String viewsP(Model model, RepleVO repleVO){
         MemberVO memberVO = MyUtils.getLoginUser(session);
         repleVO.setId(memberVO.getId());
         repleVO.setNickname(memberVO.getNickname());
@@ -128,7 +129,7 @@ public class BoardController {
     }
 
     @GetMapping("/delBoard.do")
-    public String delBoard(Model model, BoardVO boardVO, HttpSession session, HttpServletRequest request, @RequestParam(value = "no") int no) throws IOException {
+    public String delBoard(Model model, BoardVO boardVO, HttpServletRequest request, @RequestParam(value = "no") int no) throws IOException {
         String uploadPath = request.getSession().getServletContext().getRealPath("/upload/boardImg/");
         boardVO.setNo(no);
         boardVO.setId(MyUtils.getLoginUserID(session));
@@ -146,14 +147,14 @@ public class BoardController {
     }
 
     @GetMapping("/delReple.do")
-    public String delReple(Model model, RepleVO repleVO, HttpSession session){
+    public String delReple(Model model, RepleVO repleVO){
         repleVO.setId(MyUtils.getLoginUserID(session));
         repleDAO.delReple(repleVO);
         return MyUtils.REDIRECTPAGE("views.do?no="+repleVO.getBoardno());
     }
 
     @GetMapping("/modReple.do")
-    public String modReple(Model model, RepleVO repleVO, HttpSession session){
+    public String modReple(Model model, RepleVO repleVO){
         BoardVO vo = new BoardVO();
         vo.setId(MyUtils.getLoginUserID(session));
         vo.setNo(repleVO.getBoardno());
@@ -167,7 +168,7 @@ public class BoardController {
     }
 
     @PostMapping("/modReple.do")
-    public String modRepleP(Model model, RepleVO repleVO, HttpSession session){
+    public String modRepleP(Model model, RepleVO repleVO){
         repleVO.setId(MyUtils.getLoginUserID(session));
         repleDAO.modReple(repleVO);
         MyUtils.setTemplate(model, "오늘 점심 뭐먹지?","board/reple/modReple",session);
@@ -175,16 +176,16 @@ public class BoardController {
     }
 
     @GetMapping("/modBoard.do")
-    public String modBoard(Model model, BoardVO boardVO, HttpSession session){
+    public String modBoard(Model model, BoardVO boardVO){
         boardVO.setId(MyUtils.getLoginUserID(session));
         model.addAttribute("typelist",typelist);
         model.addAttribute("board",boardDAO.getBoard(boardVO));
 
-        MyUtils.setTemplate(model,boardVO.getTitle(),"board/modBoard",session);
+        MyUtils.setTemplate(model,"오늘 점심 뭐먹지?","board/modBoard",session);
         return MyUtils.TEMPLATE;
     }
     @PostMapping("/modBoard.do")
-    public String modBoardP(MultipartFile[] file,HttpSession session, Model model, BoardVO vo, HttpServletRequest request) throws IOException{
+    public String modBoardP(MultipartFile[] file, Model model, BoardVO vo, HttpServletRequest request) throws IOException{
         String uploadPath = request.getSession().getServletContext().getRealPath("/upload/boardImg/");
         UUID uuid = UUID.randomUUID();
 

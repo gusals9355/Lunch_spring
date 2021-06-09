@@ -12,7 +12,7 @@ public class MemberVO {
     private String gender;
     private String id;
     private String pw;
-    private String point;
+    private int point;
     private String ranked;
     private String reg_dt;
 

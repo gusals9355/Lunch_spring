@@ -44,5 +44,7 @@ public interface MemberDAO {
     void upPoint(MemberVO vo);
     void downPoint(MemberVO vo);
 
+    int modRanked(MemberVO vo);
+
     void modManager(String id);
 }

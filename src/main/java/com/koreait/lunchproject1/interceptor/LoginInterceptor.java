@@ -4,6 +4,7 @@ import com.koreait.lunchproject1.controller.MyUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,4 +28,5 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
     }
+
 }

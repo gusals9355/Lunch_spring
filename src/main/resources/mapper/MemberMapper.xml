@@ -99,6 +99,15 @@
     <update id="upPoint" parameterType="MemberVO">
         update member set point=point+#{writePoint} where id=#{id}
     </update>
+    <update id="modRanked" parameterType="MemberVO">
+        update member set ranked =
+            <choose>
+               <when test="point >= 1000 and point lt 2000">'미식가'</when>
+               <when test="point lt 1000">'소식가'</when>
+               <when test="point >= 2000">'대식가'</when>
+            </choose>
+        where id = #{id}
+    </update>
 
     <update id="modManager" parameterType="String">
         update member set ranked = '관리자' where id = #{id}

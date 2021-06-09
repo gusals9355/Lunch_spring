@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lunchproject?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: 123!@#qweQWE
+    password: root
   mvc:
     view:
       prefix: /WEB-INF/view/
