@@ -58,6 +58,7 @@
 			</div>
 			<div class="content" style="white-space: pre-wrap;">${boards.content }</div>
 			<hr>
+			<hr>
 			<div style="margin-bottom: 30px;">
 				<c:forEach var="item" items="${reples }">
 					<div class="repleCmt">
@@ -74,6 +75,7 @@
 						</div>
 						<!-- 댓글 삭제 등록-->
 					</div>
+					<hr>
 				</c:forEach>
 				<hr>
 				<form action="/board/views.do?boardno=${param.no }" method="post">
@@ -99,4 +101,3 @@
 		</div>
 	</div>
 </div>
-<script src="/js/write.js"></script>

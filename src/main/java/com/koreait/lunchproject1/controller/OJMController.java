@@ -5,6 +5,7 @@ import com.koreait.lunchproject1.model.dao.BoardDAO;
 import com.koreait.lunchproject1.model.dao.MemberDAO;
 import com.koreait.lunchproject1.model.vo.BoardVO;
 import com.koreait.lunchproject1.model.vo.MemberVO;
+import com.koreait.lunchproject1.service.UpbitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,14 @@ public class OJMController {
     BoardDAO boardDAO;
     @Autowired
     MemberDAO memberDAO;
+    @Autowired
+    UpbitServiceImpl upbitService;
+
+    @Autowired
+    HttpSession session;
 
     @GetMapping("/ojm")
-    public String ojm(Model model, HttpSession session, HttpServletResponse response) {
+    public String ojm(Model model, HttpServletResponse response) {
         final String[] typelist = {"한식","양식","일식","중식","분식","카페","기타"};
         Cookie cookie = new Cookie("view",null); //조회수에 사용될 쿠키
         cookie.setComment("게시판 조회 확인");
@@ -40,7 +46,7 @@ public class OJMController {
         return MyUtils.TEMPLATE;
     }
     @GetMapping("/regi_manager.do")
-    public String regi_manager(Model model, HttpSession session){
+    public String regi_manager(Model model){
 
         MyUtils.setTemplate(model,"오늘 점심은 뭐먹지?","/register_manager",session);
         return MyUtils.TEMPLATE;
@@ -48,7 +54,7 @@ public class OJMController {
 
     @ResponseBody
     @PostMapping("/regi_manager.do")
-    public Map<String,String> regi_managerP(@RequestBody MemberVO vo, HttpSession session){
+    public Map<String,String> regi_managerP(@RequestBody MemberVO vo){
         System.out.println(vo.getCode());
         Map<String,String> map = new HashMap<>();
         String c = memberDAO.regiManager(vo);
@@ -61,5 +67,12 @@ public class OJMController {
             MyUtils.reUserInfo(session,memberDAO);
             return map;
         }
+    }
+
+    @GetMapping("/upbit.do")
+    public String upbit(Model model){
+        upbitService.GetAccounts();
+        MyUtils.setTemplate(model,"upbit","/upbit",session);
+        return MyUtils.TEMPLATE;
     }
 }

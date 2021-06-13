@@ -55,7 +55,7 @@ function placesSearchCB(data, status, pagination) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
         displayPlaces(data);
-		document.getElementById('markerMsg').innerHTML="▼▼▼해당 마커를 클릭해주세요!▼▼▼"; 
+		document.getElementById('markerMsg').innerHTML="▼▼▼해당 마커를 클릭해주세요▼▼▼";
 
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 

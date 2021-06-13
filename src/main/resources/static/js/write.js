@@ -2,8 +2,18 @@
 var input = document.querySelector('.input');
 var preview = document.querySelector('.preview');
 
+let form = document.querySelector('#form');
+
+form.addEventListener('submit',function (){
+	if(input.files.length == 0){
+		const para = document.querySelector('#pp');
+		para.innerText = '사진을 선택해주세요';
+		event.preventDefault();
+	}
+})
+
 input.addEventListener('change', updateImageDisplay);
-  
+
 function updateImageDisplay() {
 	while(preview.firstChild) { 
 	  preview.removeChild(preview.firstChild); //프리뷰의 모든 내용을 지움

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.koreait.lunchproject1.model.dao.RepleDAO">
     <select id="getReples" resultType="RepleVO" parameterType="RepleVO">
-        select * from reple where boardno = #{boardno} order by no desc
+        select * from reple where boardno = #{boardno}
     </select>
 
     <insert id="insertReple" parameterType="RepleVO">
