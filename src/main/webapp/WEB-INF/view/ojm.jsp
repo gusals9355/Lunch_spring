@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05a3bed3cf436895037eb617468dc965&libraries=services"></script>
 <div class="container">
 	<div class="row"> 
@@ -60,4 +62,33 @@
 		</c:forEach>
 	</div>
 </div>
+<c:if test="${not empty userInfo}">
+	<div style="display: flex; position: relative; flex-direction: row-reverse">
+		<i class="bi bi-chat-right-text" id="chat" data-nickname="${userInfo.nickname}" style="font-size: 50px;"></i>
+
+		<div id="chat-page" class="hidden" style="position: absolute; top: -50px; z-index: 1">
+			<div class="chat-container">
+				<div class="chat-header">
+					<h2>Spring WebSocket Chat Demo</h2>
+				</div>
+				<div class="connecting">
+					연결중...
+				</div>
+				<ul id="messageArea">
+
+				</ul>
+				<form id="messageForm" name="messageForm">
+					<div class="form-group">
+						<div class="input-group clearfix">
+							<input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+							<button type="submit" class="primary">보내기</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</c:if>
+
 <script src="/js/ojm.js"></script>
+<script src="/js/chat.js"></script>
